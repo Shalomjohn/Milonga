@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/utils/appColors.dart';
+import 'package:milonga/info.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -32,26 +33,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               SizedBox(height: 60.h),
-              Row(
-                children: [
-                  SizedBox(
+              InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const InfoPage(),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
                       height: 80,
                       width: 80,
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.asset('assets/icons/milonga.png'),
-                      )),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'INFO',
-                    style: TextStyle(
-                      letterSpacing: 1.5,
-                      fontSize: 20.sp,
-                      color: primaryTextColor,
-                      fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      'INFO',
+                      style: TextStyle(
+                        letterSpacing: 1.5,
+                        fontSize: 20.sp,
+                        color: primaryTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 60.h),
               Row(

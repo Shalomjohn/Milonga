@@ -22,7 +22,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.h),
-              Image.asset('assets/icons/milonga_text.png'),
+              SizedBox(
+                width: 200.w,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Image.asset('assets/icons/milonga_text.png'),
+                ),
+              ),
               Text(
                 'LEARN & DANCE WITH YOUR PHONE',
                 style: TextStyle(

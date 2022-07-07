@@ -8,12 +8,13 @@ class MyViewModel extends ChangeNotifier {
   double? _progress = 0;
   get downloadProgress => _progress;
 
-  void startDownloading() async {
+  MyViewModel({required String url}) {
+    startDownloading(url);
+  }
+
+  void startDownloading(String url) async {
     _progress = null;
     notifyListeners();
-
-    final url =
-        'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3';
     final request = Request('GET', Uri.parse(url));
     final StreamedResponse response = await Client().send(request);
 
@@ -24,8 +25,8 @@ class MyViewModel extends ChangeNotifier {
     notifyListeners();
 
     List<int> bytes = [];
-
-    final file = await _getFile('song.mp3');
+    String filename = url.split('/').last;
+    final file = await _getFile(filename);
     response.stream.listen(
       (List<int> newBytes) {
         bytes.addAll(newBytes);

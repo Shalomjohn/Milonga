@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/utils/appColors.dart';
-import 'package:milonga/home.dart';
+import 'package:milonga/pages/home.dart';
 
 void main() {
   runApp(const MyApp());

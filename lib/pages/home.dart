@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/pages/menu.dart';
 import 'package:milonga/utils/appColors.dart';
 import 'package:milonga/pages/info.dart';
 
@@ -24,10 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 20.h),
               SizedBox(
                 width: 200.w,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Image.asset('assets/icons/milonga_text.png'),
-                ),
+                child: Image.asset('assets/icons/milonga_text.png'),
               ),
               Text(
                 'LEARN & DANCE WITH YOUR PHONE',
@@ -69,112 +67,136 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               SizedBox(height: 60.h),
-              Row(
-                children: [
-                  SizedBox(
-                      height: 80.w,
-                      width: 80.w,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.asset('assets/icons/lessons/level_1.png'),
-                      )),
-                  SizedBox(width: 10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '1-12',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'BASIC',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+              InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const MenuPage(),
                   ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        height: 80.w,
+                        width: 80.w,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child:
+                              Image.asset('assets/icons/lessons/level_1.png'),
+                        )),
+                    SizedBox(width: 10.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '1-12',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'BASIC',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 30.h),
-              Row(
-                children: [
-                  SizedBox(
-                      height: 80.w,
-                      width: 80.w,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.asset('assets/icons/lessons/level_2.png'),
-                      )),
-                  SizedBox(width: 10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '1-12',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'INTERMEDIATE',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+              InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const MenuPage(level: 1),
                   ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        height: 80.w,
+                        width: 80.w,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child:
+                              Image.asset('assets/icons/lessons/level_2.png'),
+                        )),
+                    SizedBox(width: 10.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '1-12',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'INTERMEDIATE',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 30.h),
-              Row(
-                children: [
-                  SizedBox(
-                      height: 80.w,
-                      width: 80.w,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.asset('assets/icons/lessons/level_3.png'),
-                      )),
-                  SizedBox(width: 10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '1-12',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'ADVANCED',
-                        style: TextStyle(
-                          letterSpacing: 1.5,
-                          fontSize: 20.sp,
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+              InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const MenuPage(level: 2),
                   ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        height: 80.w,
+                        width: 80.w,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child:
+                              Image.asset('assets/icons/lessons/level_3.png'),
+                        )),
+                    SizedBox(width: 10.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '1-12',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'ADVANCED',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 20.sp,
+                            color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               Column(

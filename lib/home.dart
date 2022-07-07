@@ -42,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   children: [
                     SizedBox(
-                      height: 80,
-                      width: 80,
+                      height: 80.w,
+                      width: 80.w,
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.asset('assets/icons/milonga.png'),
@@ -66,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 children: [
                   SizedBox(
-                      height: 80,
-                      width: 80,
+                      height: 80.w,
+                      width: 80.w,
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.asset('assets/icons/lessons/level_1.png'),
@@ -102,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 children: [
                   SizedBox(
-                      height: 80,
-                      width: 80,
+                      height: 80.w,
+                      width: 80.w,
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.asset('assets/icons/lessons/level_2.png'),
@@ -138,8 +138,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 children: [
                   SizedBox(
-                      height: 80,
-                      width: 80,
+                      height: 80.w,
+                      width: 80.w,
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.asset('assets/icons/lessons/level_3.png'),

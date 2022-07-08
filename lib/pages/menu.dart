@@ -33,7 +33,7 @@ class _MenuPageState extends State<MenuPage> {
         break;
     }
     Widget menuItem(int index) {
-      return Column(
+      Widget child = Column(
         children: [
           Container(
             height: 100.w,
@@ -44,6 +44,11 @@ class _MenuPageState extends State<MenuPage> {
                 topLeft: Radius.circular(5.w),
                 topRight: Radius.circular(5.w),
               ),
+            ),
+            child: Icon(
+              Icons.lock,
+              size: 40.w,
+              color: Colors.black54,
             ),
           ),
           Container(
@@ -61,13 +66,24 @@ class _MenuPageState extends State<MenuPage> {
                 index.toString(),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.sp,
                 ),
               ),
             ),
           ),
         ],
       );
+      if (levelName == 'BASIC' && index < 4) {
+        String thumbnailAssetName =
+            "assets/icons/lessons/basic/${index + 1}_icon.png";
+        child = SizedBox(
+          height: 135.w,
+          width: 100.w,
+          child: Image.asset(thumbnailAssetName),
+        );
+      }
+      return child;
     }
 
     return Column(

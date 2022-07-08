@@ -36,8 +36,8 @@ class _MenuPageState extends State<MenuPage> {
       return Column(
         children: [
           Container(
-            height: 100.h,
-            width: 110.w,
+            height: 100.w,
+            width: 100.w,
             decoration: BoxDecoration(
               color: primaryTextColor,
               borderRadius: BorderRadius.only(
@@ -48,7 +48,7 @@ class _MenuPageState extends State<MenuPage> {
           ),
           Container(
             height: 35.h,
-            width: 110.w,
+            width: 100.w,
             decoration: BoxDecoration(
               color: levelColor,
               borderRadius: BorderRadius.only(

@@ -68,6 +68,7 @@ class _LessonPageState extends State<LessonPage> {
         ..initialize().then((_) {
           _controller!.setLooping(true);
           _controller!.setVolume(0);
+          _controller!.play();
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
         });

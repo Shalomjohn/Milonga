@@ -1,4 +1,4 @@
-List<Map<String, String>> basicLessonOneList = [
+List<Map<String, String>> basicLessonTwoList = [
   {
     'url':
         'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV02-1.mp4?alt=media&token=3f5ed4d4-be7b-4245-a2db-d5b9cd6eb248',
@@ -35,6 +35,46 @@ List<Map<String, String>> basicLessonOneList = [
     'fileName': 'VO2-7.mp4',
   }
 ];
+
+List<Map<String, String>> basicLessonThreeList = [
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-1.mp4?alt=media&token=66d4aef5-ba96-4289-8bc5-46ee82f0041e',
+    'fileName': 'VO3-1.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-2.mp4?alt=media&token=a36e5a55-b1b1-4a6d-8984-2de4a12cc89f',
+    'fileName': 'VO3-2.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-3.mp4?alt=media&token=d3c07105-ea39-4ef4-89ca-c4c21f1242d0',
+    'fileName': 'VO2-3.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-4.mp4?alt=media&token=c4cdc329-ade8-4d10-94cf-58d282786139',
+    'fileName': 'VO3-4.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-5.mp4?alt=media&token=b67e4f48-ec13-438b-9bb6-84606c198f37',
+    'fileName': 'VO3-5.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-6.mp4?alt=media&token=868935e0-1685-4f69-9dea-adf9669c5a6a',
+    'fileName': 'VO3-6.mp4',
+  },
+  {
+    'url':
+        'https://firebasestorage.googleapis.com/v0/b/isupport-c2b03.appspot.com/o/videos%2FV03-7.mp4?alt=media&token=bdfade0d-c669-4e49-bf32-0de9a4cee208',
+    'fileName': 'VO3-7.mp4',
+  }
+];
+
 Map<String, List<Map<String, String>>> lessonThumbnailToURL = {
-  'assets/icons/lessons/basic/2_icon.png': basicLessonOneList,
+  'assets/icons/lessons/basic/2_icon.png': basicLessonTwoList,
+  'assets/icons/lessons/basic/3_icon.png': basicLessonThreeList,
 };

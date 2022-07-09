@@ -108,8 +108,17 @@ class _LessonPageState extends State<LessonPage> {
                                     isSlowed = isSlowed ? false : true;
                                   });
                                 },
-                                child:
+                                child: Stack(
+                                  children: [
                                     Image.asset("assets/icons/snail_icon.png"),
+                                    if (isSlowed == false)
+                                      Positioned.fill(
+                                        child: Container(
+                                          color: scaffoldColor.withOpacity(0.7),
+                                        ),
+                                      )
+                                  ],
+                                ),
                               ),
                             ),
                             Padding(

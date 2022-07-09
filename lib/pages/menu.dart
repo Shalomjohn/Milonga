@@ -141,12 +141,11 @@ class _MenuPageState extends State<MenuPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.w),
-                    color: levelColor.withOpacity(
-                        (thumbnailToVideosGottenMap[thumbnailAssetName] != 7 &&
-                                lessonsManager.lessonsDownloaded
-                                    .contains(thumbnailAssetName))
-                            ? 0
-                            : 0.5),
+                    color: levelColor.withOpacity(lessonsManager
+                            .lessonsDownloaded
+                            .contains(thumbnailAssetName)
+                        ? 0
+                        : 0.5),
                   ),
                 ),
               ),

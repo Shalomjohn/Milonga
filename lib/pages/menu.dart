@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/pages/lesson.dart';
 import 'package:milonga/providers/downloads.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
@@ -27,6 +29,7 @@ class _MenuPageState extends State<MenuPage> {
   Map<String, int> thumbnailToVideosGottenMap = {};
   PageController? pageController;
   int currentPage = 0;
+  Directory? appDir;
 
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
@@ -48,6 +51,18 @@ class _MenuPageState extends State<MenuPage> {
               setState(() {
                 isClickedMap[thumbnailAssetName] = false;
               });
+              List<Map<String, String>> thumbnailVideosMap =
+                  lessonThumbnailToURL[thumbnailAssetName]!;
+              List<String> fileNames = [];
+              for (var element in thumbnailVideosMap) {
+                fileNames.add(element['fileName']!);
+              }
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LessonPage(
+                      fileNames: fileNames, appDirPath: appDir!.path),
+                ),
+              );
             },
           );
         } else {
@@ -65,8 +80,8 @@ class _MenuPageState extends State<MenuPage> {
           Future downloadLevelVideos(String url, String fileName) async {
             Dio dio = Dio();
             CancelToken cancelToken = CancelToken();
-            var appDir = await getApplicationDocumentsDirectory();
-            String fullPath = "${appDir.path}/$fileName";
+            appDir = await getApplicationDocumentsDirectory();
+            String fullPath = "${appDir!.path}/$fileName";
             print('full path $fullPath');
             await downloadFile(dio, url, fullPath, downloadProgress);
           }

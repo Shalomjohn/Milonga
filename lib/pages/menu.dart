@@ -210,35 +210,36 @@ class _MenuPageState extends State<MenuPage> {
       Widget child = Column(
         children: [
           Container(
-            height: 100.w,
-            width: 100.w,
-            decoration: BoxDecoration(
-              color: primaryTextColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5.w),
-                topRight: Radius.circular(5.w),
+              height: 100.w,
+              width: 100.w,
+              decoration: BoxDecoration(
+                color: primaryTextColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5.w),
+                  topRight: Radius.circular(5.w),
+                ),
               ),
-            ),
-            child: index != 1
-                ? Icon(
-                    Icons.lock,
-                    size: 40.w,
-                    color: Colors.black54,
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Content',
-                        style: TextStyle(color: Colors.white, fontSize: 18.sp),
-                      ),
-                      Text(
-                        'Unavailable',
-                        style: TextStyle(color: Colors.white, fontSize: 18.sp),
-                      ),
-                    ],
-                  ),
-          ),
+              child: (index == 1 && level == 0)
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Content',
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
+                        ),
+                        Text(
+                          'Unavailable',
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
+                        ),
+                      ],
+                    )
+                  : Icon(
+                      Icons.lock,
+                      size: 40.w,
+                      color: Colors.black54,
+                    )),
           Container(
             height: 35.h,
             width: 100.w,

@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
+          child: ListView(
             children: <Widget>[
               SizedBox(height: 20.h),
               SizedBox(
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 60.h),
+              SizedBox(height: 50.h),
               InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              const Spacer(),
+              SizedBox(height: 25.h),
               Column(
                 children: [
                   Text(

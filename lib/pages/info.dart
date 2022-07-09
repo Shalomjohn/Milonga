@@ -48,113 +48,115 @@ class _InfoPageState extends State<InfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 20.h),
-            Stack(
-              children: [
-                InkWell(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20.h),
+              Stack(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 20.w),
+                      child: Icon(
+                        Icons.west,
+                        size: 30.w,
+                        color: primaryTextColor,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 35.h,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.asset('assets/icons/milonga_text.png'),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'INFO',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: primaryTextColor,
+                    ),
+                  ),
+                  Container(
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 20.w),
                     child: Icon(
-                      Icons.west,
+                      Icons.east,
                       size: 30.w,
                       color: primaryTextColor,
                     ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: Image.asset('assets/icons/milonga_text.png'),
+                ],
+              ),
+              SizedBox(height: 50.h),
+              _controller.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    )
+                  : Container(height: 300.h),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      print(_controller.value.aspectRatio);
+                      setState(() {
+                        _controller.value.isPlaying
+                            ? _controller.pause()
+                            : _controller.play();
+                      });
+                    },
+                    child: roundedContainer(
+                      Icon(
+                        _controller.value.isPlaying
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                        color: primaryTextColor,
+                        size: 50.w,
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'INFO',
-                  style: TextStyle(
-                    fontSize: 16.sp,
+                  roundedContainer(
+                    Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: Icon(
+                        Icons.add_shopping_cart,
+                        color: primaryTextColor,
+                        size: 35.w,
+                      ),
+                    ),
+                  ),
+                  roundedContainer(
+                    Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: Icon(
+                        Icons.share,
+                        color: primaryTextColor,
+                        size: 35.w,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.copyright,
                     color: primaryTextColor,
+                    size: 65.w,
                   ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 20.w),
-                  child: Icon(
-                    Icons.east,
-                    size: 30.w,
-                    color: primaryTextColor,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 50.h),
-            _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(height: 300.h),
-            SizedBox(height: 20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    print(_controller.value.aspectRatio);
-                    setState(() {
-                      _controller.value.isPlaying
-                          ? _controller.pause()
-                          : _controller.play();
-                    });
-                  },
-                  child: roundedContainer(
-                    Icon(
-                      _controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: primaryTextColor,
-                      size: 50.w,
-                    ),
-                  ),
-                ),
-                roundedContainer(
-                  Padding(
-                    padding: EdgeInsets.all(8.w),
-                    child: Icon(
-                      Icons.add_shopping_cart,
-                      color: primaryTextColor,
-                      size: 35.w,
-                    ),
-                  ),
-                ),
-                roundedContainer(
-                  Padding(
-                    padding: EdgeInsets.all(8.w),
-                    child: Icon(
-                      Icons.share,
-                      color: primaryTextColor,
-                      size: 35.w,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.copyright,
-                  color: primaryTextColor,
-                  size: 65.w,
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

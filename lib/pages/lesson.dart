@@ -160,10 +160,18 @@ class _LessonPageState extends State<LessonPage> {
                       (index) {
                         int innerIndex = index + 1;
                         return InkWell(
-                          // onTap: () => setState(() {
-                          //   _controller = VideoPlayerController.file(File(
-                          //       "${widget.appDirPath}/${widget.fileNames[index]}"));
-                          // }),
+                          onTap: () {
+                            String newFilePath =
+                                "${widget.appDirPath}/${widget.fileNames[index]}";
+                            print(newFilePath);
+                            var newFile = File(newFilePath);
+                            _controller = VideoPlayerController.file(newFile)
+                              ..initialize().then((_) {
+                                _controller!.setLooping(true);
+                                // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+                                setState(() {});
+                              });
+                          },
                           child: Padding(
                             padding: EdgeInsets.only(right: 10.w),
                             child: roundedContainer(

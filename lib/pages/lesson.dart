@@ -31,7 +31,7 @@ class _LessonPageState extends State<LessonPage> {
   bool isLoaded = false;
   VideoPlayerController? _controller;
   bool isSlowed = false;
-  bool isMuted = false;
+  bool isMuted = true;
   bool isChecked = false;
   late String appDirPath;
   int videoSelected = 0;
@@ -67,6 +67,7 @@ class _LessonPageState extends State<LessonPage> {
       _controller = VideoPlayerController.file(File(videoPath))
         ..initialize().then((_) {
           _controller!.setLooping(true);
+          _controller!.setVolume(0);
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
         });
@@ -123,7 +124,7 @@ class _LessonPageState extends State<LessonPage> {
                                       : _controller!.setVolume(1);
                                 },
                                 child: Icon(
-                                  isMuted ? Icons.volume_up : Icons.volume_off,
+                                  isMuted ? Icons.volume_off : Icons.volume_up,
                                   size: 40.w,
                                   color: primaryTextColor,
                                 ),

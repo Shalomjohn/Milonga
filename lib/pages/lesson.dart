@@ -87,158 +87,164 @@ class _LessonPageState extends State<LessonPage> {
     return isLoaded
         ? Scaffold(
             body: SafeArea(
-              child: Column(
-                children: [
-                  SizedBox(height: 20.h),
-                  Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 5.w),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    isSlowed
-                                        ? _controller!.setPlaybackSpeed(1)
-                                        : _controller!.setPlaybackSpeed(0.5);
-                                    isSlowed = isSlowed ? false : true;
-                                  });
-                                },
-                                child: Stack(
-                                  children: [
-                                    Image.asset("assets/icons/snail_icon.png"),
-                                    if (isSlowed == false)
-                                      Positioned.fill(
-                                        child: Container(
-                                          color: scaffoldColor.withOpacity(0.7),
-                                        ),
-                                      )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 15.w),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    isMuted = !isMuted;
-                                  });
-                                  isMuted
-                                      ? _controller!.setVolume(0)
-                                      : _controller!.setVolume(1);
-                                },
-                                child: Icon(
-                                  isMuted ? Icons.volume_off : Icons.volume_up,
-                                  size: 40.w,
-                                  color: primaryTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 10.w),
-                              child: InkWell(
-                                onTap: () => Navigator.of(context).pop(),
-                                child: Icon(
-                                  Icons.west,
-                                  size: 35.w,
-                                  color: primaryTextColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.w),
-                              child: InkWell(
-                                onTap: () => setState(() {
-                                  isChecked = !isChecked;
-                                  checkFunction();
-                                }),
-                                child: Icon(
-                                  isChecked
-                                      ? Icons.check_box
-                                      : Icons.check_box_outline_blank,
-                                  size: 35.w,
-                                  color: primaryTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.h),
-                  Center(
-                    child: _controller!.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: _controller!.value.aspectRatio,
-                            child: VideoPlayer(_controller!),
-                          )
-                        : Container(),
-                  ),
-                  SizedBox(height: 20.h),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: List.generate(
-                      7,
-                      (index) {
-                        int innerIndex = index + 1;
-                        return InkWell(
-                          onTap: () {
-                            String newFilePath =
-                                "${widget.appDirPath}/${widget.fileNames[index]}";
-                            print(newFilePath);
-                            var newFile = File(newFilePath);
-                            _controller!.dispose();
-                            _controller = VideoPlayerController.file(newFile)
-                              ..initialize().then((_) {
-                                _controller!.setLooping(true);
-                                if (isSlowed) {
-                                  _controller!.setPlaybackSpeed(0.5);
-                                }
-                                if (isMuted) {
-                                  _controller!.setVolume(0);
-                                }
-                                _controller!.play();
-                                setState(() {
-                                  videoSelected = index;
-                                });
-                              });
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 10.w),
-                            child: roundedContainer(
-                                Padding(
-                                  padding: EdgeInsets.all(20.w),
-                                  child: Text(
-                                    innerIndex.toString(),
-                                    style: TextStyle(
-                                      fontSize: 22.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.h),
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isSlowed
+                                          ? _controller!.setPlaybackSpeed(1)
+                                          : _controller!.setPlaybackSpeed(0.5);
+                                      isSlowed = isSlowed ? false : true;
+                                    });
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Image.asset(
+                                          "assets/icons/snail_icon.png"),
+                                      if (isSlowed == false)
+                                        Positioned.fill(
+                                          child: Container(
+                                            color:
+                                                scaffoldColor.withOpacity(0.7),
+                                          ),
+                                        )
+                                    ],
                                   ),
                                 ),
-                                width: videoSelected == index ? 4.w : null),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 15.w),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isMuted = !isMuted;
+                                    });
+                                    isMuted
+                                        ? _controller!.setVolume(0)
+                                        : _controller!.setVolume(1);
+                                  },
+                                  child: Icon(
+                                    isMuted
+                                        ? Icons.volume_off
+                                        : Icons.volume_up,
+                                    size: 40.w,
+                                    color: primaryTextColor,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: InkWell(
+                                  onTap: () => Navigator.of(context).pop(),
+                                  child: Icon(
+                                    Icons.west,
+                                    size: 35.w,
+                                    color: primaryTextColor,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: InkWell(
+                                  onTap: () => setState(() {
+                                    isChecked = !isChecked;
+                                    checkFunction();
+                                  }),
+                                  child: Icon(
+                                    isChecked
+                                        ? Icons.check_box
+                                        : Icons.check_box_outline_blank,
+                                    size: 35.w,
+                                    color: primaryTextColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  )
-                ],
+                    SizedBox(height: 20.h),
+                    Center(
+                      child: _controller!.value.isInitialized
+                          ? AspectRatio(
+                              aspectRatio: _controller!.value.aspectRatio,
+                              child: VideoPlayer(_controller!),
+                            )
+                          : Container(),
+                    ),
+                    SizedBox(height: 20.h),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: List.generate(
+                        7,
+                        (index) {
+                          int innerIndex = index + 1;
+                          return InkWell(
+                            onTap: () {
+                              String newFilePath =
+                                  "${widget.appDirPath}/${widget.fileNames[index]}";
+                              print(newFilePath);
+                              var newFile = File(newFilePath);
+                              _controller!.dispose();
+                              _controller = VideoPlayerController.file(newFile)
+                                ..initialize().then((_) {
+                                  _controller!.setLooping(true);
+                                  if (isSlowed) {
+                                    _controller!.setPlaybackSpeed(0.5);
+                                  }
+                                  if (isMuted) {
+                                    _controller!.setVolume(0);
+                                  }
+                                  _controller!.play();
+                                  setState(() {
+                                    videoSelected = index;
+                                  });
+                                });
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 10.w),
+                              child: roundedContainer(
+                                  Padding(
+                                    padding: EdgeInsets.all(20.w),
+                                    child: Text(
+                                      innerIndex.toString(),
+                                      style: TextStyle(
+                                        fontSize: 22.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  width: videoSelected == index ? 4.w : null),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             floatingActionButton: FloatingActionButton(

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/providers/lessons_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
@@ -48,18 +50,11 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   void checkFunction() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? lessonsCompleted = prefs.getStringList('lessonsCompleted');
+    var lessonManager = Provider.of<LessonsManager>(context, listen: false);
     if (isChecked) {
-      if (!lessonsCompleted!.contains(widget.thumbnailPath)) {
-        lessonsCompleted.add(widget.thumbnailPath);
-        prefs.setStringList('lessonsCompleted', lessonsCompleted);
-      }
+      lessonManager.addToLessonsCompleted(widget.thumbnailPath);
     } else {
-      if (lessonsCompleted!.contains(widget.thumbnailPath)) {
-        lessonsCompleted.remove(widget.thumbnailPath);
-        prefs.setStringList('lessonsCompleted', lessonsCompleted);
-      }
+      lessonManager.removeFromLessonsCompleted(widget.thumbnailPath);
     }
   }
 

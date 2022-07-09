@@ -6,9 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/pages/lesson.dart';
+import 'package:milonga/providers/lessons_manager.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/appColors.dart';
@@ -31,8 +33,6 @@ class _MenuPageState extends State<MenuPage> {
   PageController? pageController;
   int currentPage = 0;
   Directory? appDir;
-  List<String> lessonsDownloaded = [];
-  List<String> lessonsCompleted = [];
 
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
@@ -42,144 +42,152 @@ class _MenuPageState extends State<MenuPage> {
       downloadingMap[thumbnailAssetName] = 0;
       thumbnailToVideosGottenMap[thumbnailAssetName] = 0;
     }
-    return InkWell(
-      onTap: () async {
-        if (lessonsDownloaded.contains(thumbnailAssetName)) {
-          setState(() {
-            isClickedMap[thumbnailAssetName] = true;
-          });
-          Timer(
-            const Duration(milliseconds: 150),
-            () async {
+    return Consumer<LessonsManager>(builder: (context, lessonsManager, child) {
+      return InkWell(
+        onTap: () async {
+          if (lessonsManager.lessonsDownloaded.contains(thumbnailAssetName)) {
+            setState(() {
+              isClickedMap[thumbnailAssetName] = true;
+            });
+            Timer(
+              const Duration(milliseconds: 150),
+              () async {
+                setState(() {
+                  isClickedMap[thumbnailAssetName] = false;
+                });
+                List<Map<String, String>> thumbnailVideosMap =
+                    lessonThumbnailToURL[thumbnailAssetName]!;
+                List<String> fileNames = [];
+                for (var element in thumbnailVideosMap) {
+                  fileNames.add(element['fileName']!);
+                }
+                appDir = await getApplicationDocumentsDirectory();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LessonPage(
+                      fileNames: fileNames,
+                      appDirPath: appDir!.path,
+                      thumbnailPath: thumbnailAssetName,
+                      isChecked: lessonsManager.lessonsCompleted
+                          .contains(thumbnailAssetName),
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            void downloadProgress(int sent, int total) {
+              double result = (sent / total);
               setState(() {
-                isClickedMap[thumbnailAssetName] = false;
+                downloadingMap[thumbnailAssetName] = result;
               });
-              List<Map<String, String>> thumbnailVideosMap =
-                  lessonThumbnailToURL[thumbnailAssetName]!;
-              List<String> fileNames = [];
-              for (var element in thumbnailVideosMap) {
-                fileNames.add(element['fileName']!);
-              }
+              print("$sent $total");
+            }
+
+            Future downloadLevelVideo(String url, String fileName) async {
+              Dio dio = Dio();
+              CancelToken cancelToken = CancelToken();
               appDir = await getApplicationDocumentsDirectory();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LessonPage(
-                    fileNames: fileNames,
-                    appDirPath: appDir!.path,
-                    thumbnailPath: thumbnailAssetName,
-                    isChecked: lessonsCompleted.contains(thumbnailAssetName),
+              String fullPath = "${appDir!.path}/$fileName";
+              print('full path $fullPath');
+              await downloadFile(dio, url, fullPath, downloadProgress);
+            }
+
+            if (!(downloadingMap[thumbnailAssetName]! >= 0.0000001) &&
+                lessonThumbnailToURL[thumbnailAssetName] != null) {
+              setState(() {
+                downloadingMap[thumbnailAssetName] = 0.0000001;
+              });
+              List<Map<String, String>> urlList =
+                  lessonThumbnailToURL[thumbnailAssetName]!;
+              for (var element in urlList) {
+                await downloadLevelVideo(element['url']!, element['fileName']!);
+                thumbnailToVideosGottenMap[thumbnailAssetName] =
+                    thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+              }
+              lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
+            }
+          }
+        },
+        child: SizedBox(
+          height: 135.w,
+          width: 100.w,
+          child: Stack(
+            children: [
+              Image.asset(thumbnailAssetName),
+              (isClickedMap[thumbnailAssetName]! ||
+                      lessonsManager.lessonsCompleted
+                          .contains(thumbnailAssetName))
+                  ? Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.w),
+                          color: levelColor.withOpacity(
+                              (isClickedMap[thumbnailAssetName]! ||
+                                      lessonsManager.lessonsCompleted
+                                          .contains(thumbnailAssetName))
+                                  ? 0.5
+                                  : 0),
+                        ),
+                        child: Icon(
+                          Icons.done,
+                          color: Colors.white,
+                          size: 40.w,
+                        ),
+                      ),
+                    )
+                  : Container(),
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.w),
+                    color: levelColor.withOpacity(
+                        (thumbnailToVideosGottenMap[thumbnailAssetName] != 7 &&
+                                lessonsManager.lessonsDownloaded
+                                    .contains(thumbnailAssetName))
+                            ? 0
+                            : 0.5),
                   ),
                 ),
-              );
-            },
-          );
-        } else {
-          void downloadProgress(int sent, int total) {
-            double result = (sent / total);
-            setState(() {
-              downloadingMap[thumbnailAssetName] = result;
-            });
-            print("$sent $total");
-          }
-
-          Future downloadLevelVideo(String url, String fileName) async {
-            Dio dio = Dio();
-            CancelToken cancelToken = CancelToken();
-            appDir = await getApplicationDocumentsDirectory();
-            String fullPath = "${appDir!.path}/$fileName";
-            print('full path $fullPath');
-            await downloadFile(dio, url, fullPath, downloadProgress);
-          }
-
-          if (!(downloadingMap[thumbnailAssetName]! >= 0.0000001) &&
-              lessonThumbnailToURL[thumbnailAssetName] != null) {
-            setState(() {
-              downloadingMap[thumbnailAssetName] = 0.0000001;
-            });
-            List<Map<String, String>> urlList =
-                lessonThumbnailToURL[thumbnailAssetName]!;
-            for (var element in urlList) {
-              await downloadLevelVideo(element['url']!, element['fileName']!);
-              thumbnailToVideosGottenMap[thumbnailAssetName] =
-                  thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
-            }
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            lessonsDownloaded.add(thumbnailAssetName);
-            prefs.setStringList('lessonsDownloaded', lessonsDownloaded);
-          }
-        }
-      },
-      child: SizedBox(
-        height: 135.w,
-        width: 100.w,
-        child: Stack(
-          children: [
-            Image.asset(thumbnailAssetName),
-            isClickedMap[thumbnailAssetName]!
-                ? Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.w),
-                        color: levelColor.withOpacity(
-                            isClickedMap[thumbnailAssetName]! ? 0.5 : 0),
-                      ),
-                      child: Icon(
-                        Icons.done,
-                        color: Colors.white,
-                        size: 40.w,
-                      ),
-                    ),
-                  )
-                : Container(),
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.w),
-                  color: levelColor.withOpacity(
-                      (thumbnailToVideosGottenMap[thumbnailAssetName] != 7 &&
-                              !lessonsDownloaded.contains(thumbnailAssetName))
-                          ? 0.5
-                          : 0),
-                ),
               ),
-            ),
-            if (downloadingMap[thumbnailAssetName] != 0 &&
-                thumbnailToVideosGottenMap[thumbnailAssetName] != 7)
-              Positioned.fill(
-                top: 100.h,
-                child: Container(
-                    color: primaryColor,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 5.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'Fetched (${thumbnailToVideosGottenMap[thumbnailAssetName]!}/7)',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            child: LinearProgressIndicator(
-                              minHeight: 10.h,
-                              color: primaryTextColor,
-                              backgroundColor: primaryColor,
-                              value: downloadingMap[thumbnailAssetName]!,
+              if (downloadingMap[thumbnailAssetName] != 0 &&
+                  thumbnailToVideosGottenMap[thumbnailAssetName] != 7)
+                Positioned.fill(
+                  top: 100.h,
+                  child: Container(
+                      color: primaryColor,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(bottom: 5.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Fetched (${thumbnailToVideosGottenMap[thumbnailAssetName]!}/7)',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
-                        )
-                      ],
-                    )),
-              ),
-          ],
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: LinearProgressIndicator(
+                                minHeight: 10.h,
+                                color: primaryTextColor,
+                                backgroundColor: primaryColor,
+                                value: downloadingMap[thumbnailAssetName]!,
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget menuPage(int level) {
@@ -268,21 +276,6 @@ class _MenuPageState extends State<MenuPage> {
   setupPage() async {
     pageController = PageController(initialPage: widget.level);
     currentPage = widget.level;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? savedDownloadedListString =
-        prefs.getStringList('lessonsDownloaded');
-    if (savedDownloadedListString == null) {
-      await prefs.setStringList('lessonsDownloaded', lessonsDownloaded);
-    } else {
-      lessonsDownloaded = savedDownloadedListString;
-    }
-    List<String>? savedCompletedListString =
-        prefs.getStringList('lessonsCompleted');
-    if (savedCompletedListString == null) {
-      await prefs.setStringList('lessonsCompleted', lessonsCompleted);
-    } else {
-      lessonsCompleted = savedCompletedListString;
-    }
     pageLoaded = true;
     setState(() {});
   }

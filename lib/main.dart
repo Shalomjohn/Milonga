@@ -18,15 +18,15 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(392, 781),
         builder: (context, child) {
-          return MaterialApp(
-            title: 'Dance App',
-            theme: ThemeData(
-              primarySwatch: Colors.blueGrey,
-              scaffoldBackgroundColor: scaffoldColor,
-            ),
-            home: ChangeNotifierProvider<LessonsManager>(
-              create: (context) => LessonsManager(),
-              child: const MyHomePage(title: 'Dance App'),
+          return ChangeNotifierProvider<LessonsManager>(
+            create: (context) => LessonsManager(),
+            child: MaterialApp(
+              title: 'Dance App',
+              theme: ThemeData(
+                primarySwatch: Colors.blueGrey,
+                scaffoldBackgroundColor: scaffoldColor,
+              ),
+              home: const MyHomePage(title: 'Dance App'),
             ),
           );
         });

@@ -23,10 +23,21 @@ class LessonsManager with ChangeNotifier {
   }
 
   void addToLessonsCompleted(String assetName) async {
-    lessonsCompleted.add(assetName);
-    notifyListeners();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('lessonsCompleted', lessonsCompleted);
+    if (!lessonsCompleted.contains(assetName)) {
+      lessonsCompleted.add(assetName);
+      notifyListeners();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('lessonsCompleted', lessonsCompleted);
+    }
+  }
+
+  void removeFromLessonsCompleted(String assetName) async {
+    if (lessonsCompleted.contains(assetName)) {
+      lessonsCompleted.remove(assetName);
+      notifyListeners();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('lessonsCompleted', lessonsCompleted);
+    }
   }
 
   void loadStoredData() async {

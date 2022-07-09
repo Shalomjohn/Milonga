@@ -193,7 +193,13 @@ class _LessonPageState extends State<LessonPage> {
                               aspectRatio: _controller!.value.aspectRatio,
                               child: VideoPlayer(_controller!),
                             )
-                          : Container(),
+                          : SizedBox(
+                              height: 400.h,
+                              width: double.infinity,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                     ),
                     SizedBox(height: 20.h),
                     Wrap(

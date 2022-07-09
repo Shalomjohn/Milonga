@@ -1,5 +1,13 @@
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/providers/downloads.dart';
+import 'package:milonga/utils/file_downloader.dart';
+import 'package:milonga/utils/thumbnail_maps.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../utils/appColors.dart';
 import 'info.dart';
@@ -13,8 +21,137 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  Map<String, bool> isClickedMap = {};
+  Map<String, double> downloadingMap = {};
+  Map<String, String> vidToPathMap = {};
+  Map<String, int> thumbnailToVideosGottenMap = {};
   PageController? pageController;
   int currentPage = 0;
+
+  Widget childWithThumbnail(int index, Color levelColor, String levelName) {
+    String thumbnailAssetName =
+        "assets/icons/lessons/${levelName.toLowerCase()}/${index}_icon.png";
+    if (isClickedMap.keys.contains(thumbnailAssetName) == false) {
+      isClickedMap[thumbnailAssetName] = false;
+      downloadingMap[thumbnailAssetName] = 0;
+      thumbnailToVideosGottenMap[thumbnailAssetName] = 0;
+    }
+    return InkWell(
+      onTap: () async {
+        if (downloadingMap[thumbnailAssetName] == 1) {
+          setState(() {
+            isClickedMap[thumbnailAssetName] = true;
+          });
+          Timer(
+            const Duration(milliseconds: 200),
+            () {
+              setState(() {
+                isClickedMap[thumbnailAssetName] = false;
+              });
+            },
+          );
+        } else {
+          setState(() {
+            downloadingMap[thumbnailAssetName] = 0.0000001;
+          });
+          void downloadProgress(int sent, int total) {
+            double result = (sent / total);
+            setState(() {
+              downloadingMap[thumbnailAssetName] = result;
+            });
+            print("$sent $total");
+          }
+
+          Future downloadLevelVideos(String url, String fileName) async {
+            Dio dio = Dio();
+            CancelToken cancelToken = CancelToken();
+            var appDir = await getApplicationDocumentsDirectory();
+            String fullPath = "${appDir.path}/$fileName";
+            print('full path $fullPath');
+            await downloadFile(dio, url, fullPath, downloadProgress);
+          }
+
+          List<Map<String, String>> urlList =
+              lessonThumbnailToURL[thumbnailAssetName]!;
+          for (var element in urlList) {
+            await downloadLevelVideos(element['url']!, element['fileName']!);
+            thumbnailToVideosGottenMap[thumbnailAssetName] =
+                thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+          }
+        }
+      },
+      child: SizedBox(
+        height: 135.w,
+        width: 100.w,
+        child: Stack(
+          children: [
+            Image.asset(thumbnailAssetName),
+            isClickedMap[thumbnailAssetName]!
+                ? Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.w),
+                        color: levelColor.withOpacity(
+                            isClickedMap[thumbnailAssetName]! ? 0.5 : 0),
+                      ),
+                      child: Icon(
+                        Icons.done,
+                        color: Colors.white,
+                        size: 40.w,
+                      ),
+                    ),
+                  )
+                : Container(),
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.w),
+                  color: levelColor.withOpacity(
+                      thumbnailToVideosGottenMap[thumbnailAssetName] != 7
+                          ? 0.5
+                          : 0),
+                ),
+              ),
+            ),
+            if (downloadingMap[thumbnailAssetName] != 0 &&
+                thumbnailToVideosGottenMap[thumbnailAssetName] != 7)
+              Positioned.fill(
+                top: 100.h,
+                child: Container(
+                    color: primaryColor,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(bottom: 5.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Fetched (${thumbnailToVideosGottenMap[thumbnailAssetName]!}/7)',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: LinearProgressIndicator(
+                              minHeight: 10.h,
+                              color: primaryTextColor,
+                              backgroundColor: primaryColor,
+                              value: downloadingMap[thumbnailAssetName]!,
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget menuPage(int level) {
     String levelName = '';
     Color levelColor = levelOneColor;
@@ -74,14 +211,8 @@ class _MenuPageState extends State<MenuPage> {
           ),
         ],
       );
-      if (levelName == 'BASIC' && index < 4) {
-        String thumbnailAssetName =
-            "assets/icons/lessons/basic/${index + 1}_icon.png";
-        child = SizedBox(
-          height: 135.w,
-          width: 100.w,
-          child: Image.asset(thumbnailAssetName),
-        );
+      if (levelName == 'BASIC' && index < 4 && index != 1) {
+        child = childWithThumbnail(index, levelColor, levelName);
       }
       return child;
     }

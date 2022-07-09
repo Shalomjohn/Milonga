@@ -219,11 +219,25 @@ class _MenuPageState extends State<MenuPage> {
                 topRight: Radius.circular(5.w),
               ),
             ),
-            child: Icon(
-              Icons.lock,
-              size: 40.w,
-              color: Colors.black54,
-            ),
+            child: index != 1
+                ? Icon(
+                    Icons.lock,
+                    size: 40.w,
+                    color: Colors.black54,
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Content',
+                        style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                      ),
+                      Text(
+                        'Unavailable',
+                        style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                      ),
+                    ],
+                  ),
           ),
           Container(
             height: 35.h,

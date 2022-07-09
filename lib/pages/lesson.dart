@@ -3,16 +3,23 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/appColors.dart';
 
 class LessonPage extends StatefulWidget {
-  const LessonPage(
-      {Key? key, required this.fileNames, required this.appDirPath})
-      : super(key: key);
+  const LessonPage({
+    Key? key,
+    required this.fileNames,
+    required this.appDirPath,
+    required this.thumbnailPath,
+    required this.isChecked,
+  }) : super(key: key);
   final List<String> fileNames;
   final String appDirPath;
+  final String thumbnailPath;
+  final bool isChecked;
 
   @override
   State<LessonPage> createState() => _LessonPageState();
@@ -25,11 +32,12 @@ class _LessonPageState extends State<LessonPage> {
   bool isMuted = false;
   bool isChecked = false;
   late String appDirPath;
+  int videoSelected = 0;
 
-  Widget roundedContainer(Widget icon) {
+  Widget roundedContainer(Widget icon, {double? width}) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: primaryTextColor, width: 2.w),
+        border: Border.all(color: primaryTextColor, width: width ?? 2.w),
         shape: BoxShape.circle,
       ),
       child: Padding(
@@ -39,11 +47,28 @@ class _LessonPageState extends State<LessonPage> {
     );
   }
 
+  void checkFunction() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? lessonsCompleted = prefs.getStringList('lessonsCompleted');
+    if (isChecked) {
+      if (!lessonsCompleted!.contains(widget.thumbnailPath)) {
+        lessonsCompleted.add(widget.thumbnailPath);
+        prefs.setStringList('lessonsCompleted', lessonsCompleted);
+      }
+    } else {
+      if (lessonsCompleted!.contains(widget.thumbnailPath)) {
+        lessonsCompleted.remove(widget.thumbnailPath);
+        prefs.setStringList('lessonsCompleted', lessonsCompleted);
+      }
+    }
+  }
+
   @override
   void initState() {
     if (isLoaded == false) {
       String fileName = widget.fileNames[0];
       String videoPath = "${widget.appDirPath}/$fileName";
+      isChecked = widget.isChecked;
       _controller = VideoPlayerController.file(File(videoPath))
         ..initialize().then((_) {
           _controller!.setLooping(true);
@@ -68,6 +93,7 @@ class _LessonPageState extends State<LessonPage> {
             body: SafeArea(
               child: Column(
                 children: [
+                  SizedBox(height: 20.h),
                   Stack(
                     children: [
                       Align(
@@ -111,35 +137,41 @@ class _LessonPageState extends State<LessonPage> {
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: 20.w),
-                            child: InkWell(
-                              onTap: () => Navigator.of(context).pop(),
-                              child: Icon(
-                                Icons.west,
-                                size: 30.w,
-                                color: primaryTextColor,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: InkWell(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Icon(
+                                  Icons.west,
+                                  size: 35.w,
+                                  color: primaryTextColor,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w),
-                            child: InkWell(
-                              onTap: () => setState(() {
-                                isChecked = !isChecked;
-                              }),
-                              child: Icon(
-                                isChecked
-                                    ? Icons.check_box
-                                    : Icons.check_box_outline_blank,
-                                color: primaryTextColor,
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: InkWell(
+                                onTap: () => setState(() {
+                                  isChecked = !isChecked;
+                                  checkFunction();
+                                }),
+                                child: Icon(
+                                  isChecked
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank,
+                                  size: 35.w,
+                                  color: primaryTextColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -165,28 +197,37 @@ class _LessonPageState extends State<LessonPage> {
                                 "${widget.appDirPath}/${widget.fileNames[index]}";
                             print(newFilePath);
                             var newFile = File(newFilePath);
+                            _controller!.dispose();
                             _controller = VideoPlayerController.file(newFile)
                               ..initialize().then((_) {
                                 _controller!.setLooping(true);
-                                // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                                setState(() {});
+                                if (isSlowed) {
+                                  _controller!.setPlaybackSpeed(0.5);
+                                }
+                                if (isMuted) {
+                                  _controller!.setVolume(0);
+                                }
+                                _controller!.play();
+                                setState(() {
+                                  videoSelected = index;
+                                });
                               });
                           },
                           child: Padding(
                             padding: EdgeInsets.only(right: 10.w),
                             child: roundedContainer(
-                              Padding(
-                                padding: EdgeInsets.all(20.w),
-                                child: Text(
-                                  innerIndex.toString(),
-                                  style: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                Padding(
+                                  padding: EdgeInsets.all(20.w),
+                                  child: Text(
+                                    innerIndex.toString(),
+                                    style: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                                width: videoSelected == index ? 4.w : null),
                           ),
                         );
                       },

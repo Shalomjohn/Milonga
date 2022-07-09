@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/providers/lessons_manager.dart';
 import 'package:milonga/utils/appColors.dart';
 import 'package:milonga/pages/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +24,10 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blueGrey,
               scaffoldBackgroundColor: scaffoldColor,
             ),
-            home: const MyHomePage(title: 'Dance App'),
+            home: ChangeNotifierProvider<LessonsManager>(
+              create: (context) => LessonsManager(),
+              child: const MyHomePage(title: 'Dance App'),
+            ),
           );
         });
   }

@@ -6,10 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/pages/lesson.dart';
-import 'package:milonga/providers/downloads.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/appColors.dart';
 import 'info.dart';
@@ -23,6 +23,7 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  bool pageLoaded = false;
   Map<String, bool> isClickedMap = {};
   Map<String, double> downloadingMap = {};
   Map<String, String> vidToPathMap = {};
@@ -30,6 +31,8 @@ class _MenuPageState extends State<MenuPage> {
   PageController? pageController;
   int currentPage = 0;
   Directory? appDir;
+  List<String> lessonsDownloaded = [];
+  List<String> lessonsCompleted = [];
 
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
@@ -41,13 +44,13 @@ class _MenuPageState extends State<MenuPage> {
     }
     return InkWell(
       onTap: () async {
-        if (downloadingMap[thumbnailAssetName] == 1) {
+        if (lessonsDownloaded.contains(thumbnailAssetName)) {
           setState(() {
             isClickedMap[thumbnailAssetName] = true;
           });
           Timer(
-            const Duration(milliseconds: 200),
-            () {
+            const Duration(milliseconds: 150),
+            () async {
               setState(() {
                 isClickedMap[thumbnailAssetName] = false;
               });
@@ -57,18 +60,20 @@ class _MenuPageState extends State<MenuPage> {
               for (var element in thumbnailVideosMap) {
                 fileNames.add(element['fileName']!);
               }
+              appDir = await getApplicationDocumentsDirectory();
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => LessonPage(
-                      fileNames: fileNames, appDirPath: appDir!.path),
+                    fileNames: fileNames,
+                    appDirPath: appDir!.path,
+                    thumbnailPath: thumbnailAssetName,
+                    isChecked: lessonsCompleted.contains(thumbnailAssetName),
+                  ),
                 ),
               );
             },
           );
         } else {
-          setState(() {
-            downloadingMap[thumbnailAssetName] = 0.0000001;
-          });
           void downloadProgress(int sent, int total) {
             double result = (sent / total);
             setState(() {
@@ -77,7 +82,7 @@ class _MenuPageState extends State<MenuPage> {
             print("$sent $total");
           }
 
-          Future downloadLevelVideos(String url, String fileName) async {
+          Future downloadLevelVideo(String url, String fileName) async {
             Dio dio = Dio();
             CancelToken cancelToken = CancelToken();
             appDir = await getApplicationDocumentsDirectory();
@@ -86,12 +91,21 @@ class _MenuPageState extends State<MenuPage> {
             await downloadFile(dio, url, fullPath, downloadProgress);
           }
 
-          List<Map<String, String>> urlList =
-              lessonThumbnailToURL[thumbnailAssetName]!;
-          for (var element in urlList) {
-            await downloadLevelVideos(element['url']!, element['fileName']!);
-            thumbnailToVideosGottenMap[thumbnailAssetName] =
-                thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+          if (!(downloadingMap[thumbnailAssetName]! >= 0.0000001) &&
+              lessonThumbnailToURL[thumbnailAssetName] != null) {
+            setState(() {
+              downloadingMap[thumbnailAssetName] = 0.0000001;
+            });
+            List<Map<String, String>> urlList =
+                lessonThumbnailToURL[thumbnailAssetName]!;
+            for (var element in urlList) {
+              await downloadLevelVideo(element['url']!, element['fileName']!);
+              thumbnailToVideosGottenMap[thumbnailAssetName] =
+                  thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+            }
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            lessonsDownloaded.add(thumbnailAssetName);
+            prefs.setStringList('lessonsDownloaded', lessonsDownloaded);
           }
         }
       },
@@ -122,7 +136,8 @@ class _MenuPageState extends State<MenuPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.w),
                   color: levelColor.withOpacity(
-                      thumbnailToVideosGottenMap[thumbnailAssetName] != 7
+                      (thumbnailToVideosGottenMap[thumbnailAssetName] != 7 &&
+                              !lessonsDownloaded.contains(thumbnailAssetName))
                           ? 0.5
                           : 0),
                 ),
@@ -232,26 +247,49 @@ class _MenuPageState extends State<MenuPage> {
       return child;
     }
 
-    return Column(
-      children: [
-        Text(
-          levelName,
-          style: TextStyle(fontSize: 20.sp, color: primaryTextColor),
-        ),
-        SizedBox(height: 15.h),
-        Wrap(
-          spacing: 15.w,
-          runSpacing: 15.h,
-          children: List.generate(12, (index) => menuItem(index + 1)),
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Text(
+            levelName,
+            style: TextStyle(fontSize: 20.sp, color: primaryTextColor),
+          ),
+          SizedBox(height: 15.h),
+          Wrap(
+            spacing: 15.w,
+            runSpacing: 15.h,
+            children: List.generate(12, (index) => menuItem(index + 1)),
+          )
+        ],
+      ),
     );
+  }
+
+  setupPage() async {
+    pageController = PageController(initialPage: widget.level);
+    currentPage = widget.level;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? savedDownloadedListString =
+        prefs.getStringList('lessonsDownloaded');
+    if (savedDownloadedListString == null) {
+      await prefs.setStringList('lessonsDownloaded', lessonsDownloaded);
+    } else {
+      lessonsDownloaded = savedDownloadedListString;
+    }
+    List<String>? savedCompletedListString =
+        prefs.getStringList('lessonsCompleted');
+    if (savedCompletedListString == null) {
+      await prefs.setStringList('lessonsCompleted', lessonsCompleted);
+    } else {
+      lessonsCompleted = savedCompletedListString;
+    }
+    pageLoaded = true;
+    setState(() {});
   }
 
   @override
   void initState() {
-    pageController = PageController(initialPage: widget.level);
-    currentPage = widget.level;
+    setupPage();
     super.initState();
   }
 
@@ -259,113 +297,117 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 20.h),
-            Stack(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 20.w),
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Icon(
-                      Icons.west,
-                      size: 30.w,
-                      color: primaryTextColor,
-                    ),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 25.h,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: Image.asset('assets/icons/milonga_text.png'),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(right: 20.w),
-                  height: 25.h,
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const InfoPage(),
-                      ),
-                    ),
-                    child: Image.asset('assets/icons/info_active.png'),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                onPageChanged: (pageIndex) {
-                  setState(() {
-                    currentPage = pageIndex;
-                  });
-                },
+        child: pageLoaded
+            ? Column(
                 children: [
-                  menuPage(0),
-                  menuPage(1),
-                  menuPage(2),
+                  SizedBox(height: 20.h),
+                  Stack(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Icon(
+                            Icons.west,
+                            size: 30.w,
+                            color: primaryTextColor,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25.h,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Image.asset('assets/icons/milonga_text.png'),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 20.w),
+                        height: 25.h,
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const InfoPage(),
+                            ),
+                          ),
+                          child: Image.asset('assets/icons/info_active.png'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: PageView(
+                      controller: pageController,
+                      onPageChanged: (pageIndex) {
+                        setState(() {
+                          currentPage = pageIndex;
+                        });
+                      },
+                      children: [
+                        menuPage(0),
+                        menuPage(1),
+                        menuPage(2),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          if (currentPage != 0) {
+                            pageController!.animateToPage(0,
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeIn);
+                          }
+                        },
+                        child: Icon(
+                          Icons.circle,
+                          color: currentPage == 0 ? Colors.white : Colors.grey,
+                          size: 18.w,
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      InkWell(
+                        onTap: () {
+                          if (currentPage != 1) {
+                            pageController!.animateToPage(1,
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeIn);
+                          }
+                        },
+                        child: Icon(
+                          Icons.circle,
+                          color: currentPage == 1 ? Colors.white : Colors.grey,
+                          size: 18.w,
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      InkWell(
+                        onTap: () {
+                          if (currentPage != 2) {
+                            pageController!.animateToPage(2,
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeIn);
+                          }
+                        },
+                        child: Icon(
+                          Icons.circle,
+                          color: currentPage == 2 ? Colors.white : Colors.grey,
+                          size: 18.w,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h)
                 ],
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    if (currentPage != 0) {
-                      pageController!.animateToPage(0,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeIn);
-                    }
-                  },
-                  child: Icon(
-                    Icons.circle,
-                    color: currentPage == 0 ? Colors.white : Colors.grey,
-                    size: 18.w,
-                  ),
-                ),
-                SizedBox(width: 5.w),
-                InkWell(
-                  onTap: () {
-                    if (currentPage != 1) {
-                      pageController!.animateToPage(1,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeIn);
-                    }
-                  },
-                  child: Icon(
-                    Icons.circle,
-                    color: currentPage == 1 ? Colors.white : Colors.grey,
-                    size: 18.w,
-                  ),
-                ),
-                SizedBox(width: 5.w),
-                InkWell(
-                  onTap: () {
-                    if (currentPage != 2) {
-                      pageController!.animateToPage(2,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeIn);
-                    }
-                  },
-                  child: Icon(
-                    Icons.circle,
-                    color: currentPage == 2 ? Colors.white : Colors.grey,
-                    size: 18.w,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h)
-          ],
-        ),
       ),
     );
   }

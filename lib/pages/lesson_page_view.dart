@@ -59,20 +59,21 @@ class _LessonPageViewState extends State<LessonPageView> {
   @override
   Widget build(BuildContext context) {
     return pageLoaded
-        ? PageView(
-            controller: pageController,
-            children: pagesMap.keys
-                .map((e) => Consumer<LessonsManager>(
-                        builder: (context, lessonsManager, child) {
-                      return LessonPage(
+        ? Consumer<LessonsManager>(builder: (context, lessonsManager, child) {
+            return PageView(
+              controller: pageController,
+              children: pagesMap.keys
+                  .where((element) =>
+                      lessonsManager.lessonsDownloaded.contains(element))
+                  .map((e) => LessonPage(
                         fileNames: pagesMap[e]!,
                         appDirPath: appDirPath,
                         thumbnailPath: e,
                         isChecked: lessonsManager.lessonsCompleted.contains(e),
-                      );
-                    }))
-                .toList(),
-          )
+                      ))
+                  .toList(),
+            );
+          })
         : const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),

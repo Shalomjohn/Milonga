@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -37,6 +38,7 @@ class _LessonPageState extends State<LessonPage> {
   int videoSelected = 0;
   String level = '';
   String lessonNumber = '';
+  bool showingPlayButton = false;
 
   Widget roundedContainer(Widget icon, {double? width}) {
     return Container(
@@ -60,6 +62,19 @@ class _LessonPageState extends State<LessonPage> {
     }
   }
 
+  void onScreenTouch({bool long = false}) {
+    setState(() {
+      showingPlayButton = true;
+      _controller!.value.isPlaying ? _controller!.pause() : _controller!.play();
+    });
+    Timer(
+      Duration(milliseconds: long ? 800 : 300),
+      (() => setState(() {
+            showingPlayButton = false;
+          })),
+    );
+  }
+
   @override
   void initState() {
     if (isLoaded == false) {
@@ -78,6 +93,7 @@ class _LessonPageState extends State<LessonPage> {
           setState(() {});
         });
       isLoaded = true;
+      onScreenTouch(long: true);
     }
     super.initState();
   }
@@ -239,9 +255,31 @@ class _LessonPageState extends State<LessonPage> {
                     SizedBox(height: 10.h),
                     Center(
                       child: _controller!.value.isInitialized
-                          ? AspectRatio(
-                              aspectRatio: _controller!.value.aspectRatio,
-                              child: VideoPlayer(_controller!),
+                          ? Stack(
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: _controller!.value.aspectRatio,
+                                  child: VideoPlayer(_controller!),
+                                ),
+                                Positioned.fill(
+                                  child: InkWell(
+                                    onTap: () => onScreenTouch(),
+                                    child: showingPlayButton
+                                        ? SizedBox(
+                                            height: 100,
+                                            width: 100,
+                                            child: Icon(
+                                              _controller!.value.isPlaying
+                                                  ? Icons.play_circle
+                                                  : Icons.pause_circle,
+                                              size: 80.w,
+                                              color: primaryTextColor,
+                                            ),
+                                          )
+                                        : Container(),
+                                  ),
+                                )
+                              ],
                             )
                           : SizedBox(
                               height: 400.h,
@@ -302,18 +340,6 @@ class _LessonPageState extends State<LessonPage> {
                     )
                   ],
                 ),
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  _controller!.value.isPlaying
-                      ? _controller!.pause()
-                      : _controller!.play();
-                });
-              },
-              child: Icon(
-                _controller!.value.isPlaying ? Icons.pause : Icons.play_arrow,
               ),
             ),
           )

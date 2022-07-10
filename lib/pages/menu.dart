@@ -102,7 +102,9 @@ class _MenuPageState extends State<MenuPage> {
             }
 
             if (!(downloadingMap[thumbnailAssetName]! >= 0.0000001) &&
-                lessonThumbnailToURL[thumbnailAssetName] != null) {
+                lessonThumbnailToURL[levelName.toLowerCase()]![
+                        thumbnailAssetName] !=
+                    null) {
               setState(() {
                 downloadingMap[thumbnailAssetName] = 0.0000001;
               });

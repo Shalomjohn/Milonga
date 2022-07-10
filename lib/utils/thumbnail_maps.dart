@@ -74,7 +74,9 @@ List<Map<String, String>> basicLessonThreeList = [
   }
 ];
 
-Map<String, List<Map<String, String>>> lessonThumbnailToURL = {
-  'assets/icons/lessons/basic/2_icon.png': basicLessonTwoList,
-  'assets/icons/lessons/basic/3_icon.png': basicLessonThreeList,
+Map<String, Map<String, List<Map<String, String>>>> lessonThumbnailToURL = {
+  'basic': {
+    'assets/icons/lessons/basic/2_icon.png': basicLessonTwoList,
+    'assets/icons/lessons/basic/3_icon.png': basicLessonThreeList,
+  }
 };

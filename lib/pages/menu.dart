@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/pages/lesson.dart';
+import 'package:milonga/pages/lesson_page_view.dart';
 import 'package:milonga/providers/lessons_manager.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
@@ -56,21 +57,28 @@ class _MenuPageState extends State<MenuPage> {
                   isClickedMap[thumbnailAssetName] = false;
                 });
                 List<Map<String, String>> thumbnailVideosMap =
-                    lessonThumbnailToURL[thumbnailAssetName]!;
+                    lessonThumbnailToURL[levelName.toLowerCase()]![
+                        thumbnailAssetName]!;
                 List<String> fileNames = [];
                 for (var element in thumbnailVideosMap) {
                   fileNames.add(element['fileName']!);
                 }
                 appDir = await getApplicationDocumentsDirectory();
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => LessonPage(
+                //       fileNames: fileNames,
+                //       appDirPath: appDir!.path,
+                //       thumbnailPath: thumbnailAssetName,
+                //       isChecked: lessonsManager.lessonsCompleted
+                //           .contains(thumbnailAssetName),
+                //     ),
+                //   ),
+                // );
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => LessonPage(
-                      fileNames: fileNames,
-                      appDirPath: appDir!.path,
-                      thumbnailPath: thumbnailAssetName,
-                      isChecked: lessonsManager.lessonsCompleted
-                          .contains(thumbnailAssetName),
-                    ),
+                    builder: (context) =>
+                        LessonPageView(lessonThumbnailPath: thumbnailAssetName),
                   ),
                 );
               },
@@ -98,8 +106,8 @@ class _MenuPageState extends State<MenuPage> {
               setState(() {
                 downloadingMap[thumbnailAssetName] = 0.0000001;
               });
-              List<Map<String, String>> urlList =
-                  lessonThumbnailToURL[thumbnailAssetName]!;
+              List<Map<String, String>> urlList = lessonThumbnailToURL[
+                  levelName.toLowerCase()]![thumbnailAssetName]!;
               for (var element in urlList) {
                 await downloadLevelVideo(element['url']!, element['fileName']!);
                 thumbnailToVideosGottenMap[thumbnailAssetName] =

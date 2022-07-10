@@ -225,13 +225,19 @@ class _MenuPageState extends State<MenuPage> {
                       children: [
                         Text(
                           'Content',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(
                           'Unavailable',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     )

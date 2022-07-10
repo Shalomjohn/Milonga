@@ -35,6 +35,8 @@ class _LessonPageState extends State<LessonPage> {
   bool isChecked = false;
   late String appDirPath;
   int videoSelected = 0;
+  String level = '';
+  String lessonNumber = '';
 
   Widget roundedContainer(Widget icon, {double? width}) {
     return Container(
@@ -64,6 +66,9 @@ class _LessonPageState extends State<LessonPage> {
       String fileName = widget.fileNames[0];
       String videoPath = "${widget.appDirPath}/$fileName";
       isChecked = widget.isChecked;
+      lessonNumber =
+          widget.thumbnailPath.split('/').last.replaceAll('_icon.png', '');
+      level = widget.thumbnailPath.split('/')[3].toUpperCase();
       _controller = VideoPlayerController.file(File(videoPath))
         ..initialize().then((_) {
           _controller!.setLooping(true);
@@ -186,7 +191,52 @@ class _LessonPageState extends State<LessonPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
+                    Text(
+                      level,
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        color: primaryTextColor,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: InkWell(
+                            // onTap: () => Navigator.of(context).pop(),
+                            child: Icon(
+                              Icons.west,
+                              size: 35.w,
+                              color: primaryTextColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          child: Text(
+                            lessonNumber,
+                            style: TextStyle(
+                              fontSize: 25.sp,
+                              color: primaryTextColor,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: InkWell(
+                            // onTap: () => Navigator.of(context).pop(),
+                            child: Icon(
+                              Icons.east,
+                              size: 35.w,
+                              color: primaryTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
                     Center(
                       child: _controller!.value.isInitialized
                           ? AspectRatio(

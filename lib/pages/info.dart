@@ -53,205 +53,215 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   Widget creditsWidget() {
-    return IntrinsicHeight(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30.w),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 40.h),
-                Text(
-                  'CREDITS',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30.w),
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 40.h),
+              Text(
+                'CREDITS',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'CREATED and PRODUCED',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                'CREATED and PRODUCED',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'CONCEPT, FILMING, DESING,',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'CONCEPT, FILMING, DESING,',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'AUDIO and VIDEO EDITING',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'AUDIO and VIDEO EDITING',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Henryk Gajewski',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Henryk Gajewski',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'LESSONS & DANCING',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'LESSONS & DANCING',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Arjan Sikking & Marianne van Berlo',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Arjan Sikking & Marianne van Berlo',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'ORIGINAL MUSIC',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'ORIGINAL MUSIC',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'COMPOSED & PERFORMED',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'COMPOSED & PERFORMED',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Carel Kraayenhof',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Carel Kraayenhof',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'FLUTTER APP CODING',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'FLUTTER APP CODING',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Remco Tevreden',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Remco Tevreden',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'iOS PROTOTYPE CODING',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'iOS PROTOTYPE CODING',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Marcin Kowalczyk',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Marcin Kowalczyk',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'LOGO DESIGN',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'LOGO DESIGN',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Wytske Wits',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Wytske Wits',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'INFO VIDEO APPEARANCE',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'INFO VIDEO APPEARANCE',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Batoul Lakmoush',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Batoul Lakmoush',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Wouter Bording',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Wouter Bording',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'SPECIAL THANKS',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'SPECIAL THANKS',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Arjan Sikking',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Arjan Sikking',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Wytske Wits',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Wytske Wits',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  'Marcin Gajewski',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                'Marcin Gajewski',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  'COPYRIGHTS',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'COPYRIGHTS',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 20.sp,
                 ),
-                Text(
-                  '© Henryk Gajewski, Since 2014',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: 20.sp,
-                  ),
+              ),
+              Text(
+                '© Henryk Gajewski, Since 2014',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
                 ),
-                SizedBox(height: 40.h),
-              ],
-            ),
+              ),
+              SizedBox(height: 40.h),
+            ],
           ),
         ),
       ),
@@ -303,9 +313,9 @@ class _InfoPageState extends State<InfoPage> {
                             onTap: () => Navigator.of(context).pop(),
                             child: Container(
                                 alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(left: 20.w),
+                                padding: EdgeInsets.only(left: 20.w, top: 5.h),
                                 child: Image.asset('assets/icons/arrowback.png',
-                                    height: 30)),
+                                    height: 35.h)),
                           ),
                           Container(
                             alignment: Alignment.center,
@@ -330,9 +340,9 @@ class _InfoPageState extends State<InfoPage> {
                               },
                               child: isMuted
                                   ? Image.asset('assets/icons/audio.png',
-                                      height: 30)
+                                      height: 35.h)
                                   : Image.asset('assets/icons/audioON.png',
-                                      height: 30),
+                                      height: 35.h),
                             ),
                           ),
                         ],
@@ -343,6 +353,9 @@ class _InfoPageState extends State<InfoPage> {
                         children: [
                           InkWell(
                             onTap: () => showModalBottomSheet<void>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.w),
+                              ),
                               context: context,
                               builder: (BuildContext context) {
                                 return IntrinsicHeight(
@@ -371,27 +384,22 @@ class _InfoPageState extends State<InfoPage> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(20.w),
-                                                gradient: const LinearGradient(
-                                                    colors: [
-                                                      primaryTextColor,
-                                                      primaryColor,
-                                                      primaryTextColor
-                                                    ],
-                                                    begin: Alignment.bottomLeft,
-                                                    end: Alignment.topRight),
+                                                    BorderRadius.circular(25.w),
+                                                color: primaryColor,
                                               ),
-                                              child: Padding(
+                                              child: Container(
+                                                width: double.infinity,
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 80.w,
                                                     vertical: 15.w),
-                                                child: Text(
-                                                  'Subscribe',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18.sp),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Subscribe',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18.sp),
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -465,6 +473,9 @@ class _InfoPageState extends State<InfoPage> {
                           SizedBox(width: 40.w),
                           InkWell(
                             onTap: () => showModalBottomSheet<void>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.w),
+                              ),
                               context: context,
                               builder: (BuildContext context) {
                                 return creditsWidget();

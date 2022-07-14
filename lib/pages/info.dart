@@ -52,13 +52,220 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
+  Widget creditsWidget() {
+    return IntrinsicHeight(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 30.w),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 40.h),
+                Text(
+                  'CREDITS',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'CREATED and PRODUCED',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'CONCEPT, FILMING, DESING,',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'AUDIO and VIDEO EDITING',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Henryk Gajewski',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'LESSONS & DANCING',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Arjan Sikking & Marianne van Berlo',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'ORIGINAL MUSIC',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'COMPOSED & PERFORMED',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Carel Kraayenhof',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'FLUTTER APP CODING',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Remco Tevreden',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'iOS PROTOTYPE CODING',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Marcin Kowalczyk',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'LOGO DESIGN',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Wytske Wits',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'INFO VIDEO APPEARANCE',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Batoul Lakmoush',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Wouter Bording',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'SPECIAL THANKS',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Arjan Sikking',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Wytske Wits',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  'Marcin Gajewski',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  'COPYRIGHTS',
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                Text(
+                  '© Henryk Gajewski, Since 2014',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                SizedBox(height: 40.h),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/test_video.mp4')
+    _controller = VideoPlayerController.asset('assets/videos/info_video.mp4')
       ..initialize().then((_) {
         _controller.setLooping(true);
         _controller.setVolume(0);
+        _controller.play();
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
@@ -95,14 +302,10 @@ class _InfoPageState extends State<InfoPage> {
                           InkWell(
                             onTap: () => Navigator.of(context).pop(),
                             child: Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
-                              child: Icon(
-                                Icons.west,
-                                size: 30.w,
-                                color: primaryTextColor,
-                              ),
-                            ),
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.only(left: 20.w),
+                                child: Image.asset('assets/icons/arrowback.png',
+                                    height: 30)),
                           ),
                           Container(
                             alignment: Alignment.center,
@@ -125,11 +328,11 @@ class _InfoPageState extends State<InfoPage> {
                                     ? _controller.setVolume(0)
                                     : _controller.setVolume(1);
                               },
-                              child: Icon(
-                                isMuted ? Icons.volume_off : Icons.volume_up,
-                                size: 40.w,
-                                color: primaryTextColor,
-                              ),
+                              child: isMuted
+                                  ? Image.asset('assets/icons/audio.png',
+                                      height: 30)
+                                  : Image.asset('assets/icons/audioON.png',
+                                      height: 30),
                             ),
                           ),
                         ],
@@ -202,11 +405,8 @@ class _InfoPageState extends State<InfoPage> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(8.w),
-                              child: Icon(
-                                Icons.add_shopping_cart,
-                                color: primaryTextColor,
-                                size: 45.w,
-                              ),
+                              child: Image.asset('assets/icons/purchase.png',
+                                  height: 45.h),
                             ),
                           ),
                           SizedBox(width: 30.w),
@@ -283,11 +483,8 @@ class _InfoPageState extends State<InfoPage> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(8.w),
-                              child: Icon(
-                                Icons.share,
-                                color: primaryTextColor,
-                                size: 45.w,
-                              ),
+                              child: Image.asset('assets/icons/share.png',
+                                  height: 45.h),
                             ),
                           ),
                         ],
@@ -321,7 +518,7 @@ class _InfoPageState extends State<InfoPage> {
                               ],
                             )
                           : Container(height: 300.h),
-                      SizedBox(height: 15.h),
+                      SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -329,23 +526,23 @@ class _InfoPageState extends State<InfoPage> {
                             onTap: () {
                               _controller.seekTo(const Duration(seconds: 0));
                             },
-                            child: roundedContainer(
-                              Icon(
-                                Icons.play_arrow,
-                                color: primaryTextColor,
-                                size: 50.w,
-                              ),
-                            ),
+                            child: Image.asset('assets/icons/play_inactive.png',
+                                height: 55.h),
                           ),
                           SizedBox(width: 40.w),
-                          Icon(
-                            Icons.copyright,
-                            color: primaryTextColor,
-                            size: 65.w,
+                          InkWell(
+                            onTap: () => showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return creditsWidget();
+                              },
+                            ),
+                            child: Image.asset('assets/icons/credits.png',
+                                height: 55.h),
                           ),
                         ],
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 15.h),
                       Text(
                         'LEARN AND DANCE WITH YOUR PHONE',
                         style: TextStyle(

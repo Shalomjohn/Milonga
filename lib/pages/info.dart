@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:milonga/pages/menu.dart';
 import 'package:milonga/utils/appColors.dart';
-import 'package:milonga/utils/social_share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
 class InfoPage extends StatefulWidget {
@@ -411,76 +411,9 @@ class _InfoPageState extends State<InfoPage> {
                           ),
                           SizedBox(width: 30.w),
                           InkWell(
-                            onTap: () => showModalBottomSheet<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return IntrinsicHeight(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 30.w, vertical: 40.h),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              'Share to:',
-                                              style: TextStyle(fontSize: 18.sp),
-                                            ),
-                                          ),
-                                          SizedBox(height: 20.h),
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () => share(
-                                                      SocialMedia.facebook),
-                                                  child: Icon(
-                                                    Icons.facebook,
-                                                    size: 50.w,
-                                                    color: Colors.blue,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () => share(
-                                                      SocialMedia.twitter),
-                                                  child: Icon(
-                                                    FontAwesomeIcons.twitter,
-                                                    size: 50.w,
-                                                    color: Colors.blue,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () => share(
-                                                      SocialMedia.whatsapp),
-                                                  child: Icon(
-                                                    Icons.whatsapp,
-                                                    size: 50.w,
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () =>
-                                                      share(SocialMedia.email),
-                                                  child: Icon(
-                                                    Icons.email,
-                                                    size: 50.w,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                              ])
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                            onTap: () => Share.share(
+                                'Milonga helps you to learn how to dance using your phone. Download now!\nhttps://example.com',
+                                subject: 'Introducing Milonga'),
                             child: Padding(
                               padding: EdgeInsets.all(8.w),
                               child: Image.asset('assets/icons/share.png',

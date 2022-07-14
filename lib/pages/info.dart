@@ -19,6 +19,7 @@ class _InfoPageState extends State<InfoPage> {
   late VideoPlayerController _controller;
   bool isMuted = true;
   bool showingPlayButton = false;
+  bool subscriptionIsMonthly = true;
 
   void onPortraitScreenTouch({bool long = false}) {
     if (showingPlayButton) {
@@ -268,6 +269,187 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
+  Widget subscriptionWidget(
+      void Function() monthlyIsClicked, void Function() yearlyIsClicked) {
+    return IntrinsicHeight(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 35.h),
+              Text(
+                'Watch Premium Content',
+                style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                  "Subscribing gets you access to all videos contained in all lessons. Explore and watch videos on phones and tablets.",
+                  style: TextStyle(color: Colors.grey[500], fontSize: 16.sp),
+                  textAlign: TextAlign.center),
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Choose Your Plan',
+                      style: TextStyle(fontSize: 16.w),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        shape: BoxShape.circle,
+                      ),
+                      padding: EdgeInsets.all(5.w),
+                      child: Icon(Icons.close, size: 15.w),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 15.h),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.w),
+                  border: Border.all(
+                    color: subscriptionIsMonthly
+                        ? primaryColor
+                        : Colors.grey[300]!,
+                    width: subscriptionIsMonthly ? 2 : 1,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'MONTHLY',
+                            style: TextStyle(
+                                color: Colors.grey[500],
+                                letterSpacing: 1.5,
+                                fontSize: 14.sp),
+                          ),
+                          SizedBox(height: 15.h),
+                          Text(
+                            "\$XX.XX/Month",
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          monthlyIsClicked();
+                        },
+                        child: Icon(
+                          subscriptionIsMonthly
+                              ? Icons.radio_button_on
+                              : Icons.radio_button_off,
+                          color: subscriptionIsMonthly
+                              ? primaryColor
+                              : Colors.grey[300],
+                          size: 26.w,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 15.h),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.w),
+                  border: Border.all(
+                    color: subscriptionIsMonthly
+                        ? Colors.grey[500]!
+                        : primaryColor,
+                    width: subscriptionIsMonthly ? 1 : 2,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'ANNUALLY',
+                            style: TextStyle(
+                                color: Colors.grey[500],
+                                letterSpacing: 1.5,
+                                fontSize: 14.sp),
+                          ),
+                          SizedBox(height: 15.h),
+                          Text(
+                            "\$XXX.XX/year",
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          yearlyIsClicked();
+                        },
+                        child: Icon(
+                          subscriptionIsMonthly
+                              ? Icons.radio_button_off
+                              : Icons.radio_button_on,
+                          color: subscriptionIsMonthly
+                              ? Colors.grey[500]
+                              : primaryColor,
+                          size: 26.w,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 20.h,
+                  horizontal: 20,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.w),
+                    color: primaryColor,
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.w),
+                    child: Center(
+                      child: Text(
+                        'Continue to Checkout',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -358,57 +540,28 @@ class _InfoPageState extends State<InfoPage> {
                               ),
                               context: context,
                               builder: (BuildContext context) {
-                                return IntrinsicHeight(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 30.w, vertical: 40.h),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Image.asset(
-                                              'assets/icons/milonga.png',
-                                              height: 70.w),
-                                          SizedBox(height: 20.h),
-                                          Text(
-                                            'Subscribe to Milonga to gain access to all lessons and videos. Subscription is on a monthly basis and will cost \$X',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontSize: 18.sp),
-                                          ),
-                                          SizedBox(height: 20.h),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 20.h),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(25.w),
-                                                color: primaryColor,
-                                              ),
-                                              child: Container(
-                                                width: double.infinity,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 15.w),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Subscribe',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 18.sp),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                return StatefulBuilder(builder:
+                                    (BuildContext context,
+                                        StateSetter setState) {
+                                  void monthlyIsClicked() {
+                                    if (!subscriptionIsMonthly) {
+                                      setState(() {
+                                        subscriptionIsMonthly = true;
+                                      });
+                                    }
+                                  }
+
+                                  void yearlyIsClicked() {
+                                    if (subscriptionIsMonthly) {
+                                      setState(() {
+                                        subscriptionIsMonthly = false;
+                                      });
+                                    }
+                                  }
+
+                                  return subscriptionWidget(
+                                      monthlyIsClicked, yearlyIsClicked);
+                                });
                               },
                             ),
                             child: Padding(

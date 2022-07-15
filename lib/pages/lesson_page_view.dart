@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:milonga/pages/lesson.dart';
+import 'package:milonga/utils/components.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class LessonPageView extends StatefulWidget {
 }
 
 class _LessonPageViewState extends State<LessonPageView> {
+  int currentPage = 0;
   List<Widget> children = [];
   late PageController pageController;
   String level = '';
@@ -43,9 +45,8 @@ class _LessonPageViewState extends State<LessonPageView> {
       }
       pagesMap[element] = fileNames;
     }
-    int initialPage =
-        pagesMap.keys.toList().indexOf(widget.lessonThumbnailPath);
-    pageController = PageController(initialPage: initialPage);
+    currentPage = pagesMap.keys.toList().indexOf(widget.lessonThumbnailPath);
+    pageController = PageController(initialPage: currentPage);
     pageLoaded = true;
     setState(() {});
   }
@@ -60,12 +61,44 @@ class _LessonPageViewState extends State<LessonPageView> {
   Widget build(BuildContext context) {
     return pageLoaded
         ? Consumer<LessonsManager>(builder: (context, lessonsManager, child) {
+            List<String> lessonsDownloaded = pagesMap.keys
+                .where((element) =>
+                    lessonsManager.lessonsDownloaded.contains(element))
+                .toList();
+
+            void gotoNextLesson() {
+              if (currentPage != lessonsDownloaded.length - 1) {
+                pageController.animateToPage(
+                  currentPage + 1,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              } else {
+                customScaffoldMessage(
+                    context, 'You have reached the last lesson');
+              }
+            }
+
+            void gotoPreviousLesson() {
+              if (currentPage != 0) {
+                pageController.animateToPage(
+                  currentPage - 1,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              } else {
+                customScaffoldMessage(
+                    context, 'You have reached the first lesson');
+              }
+            }
+
             return PageView(
+              onPageChanged: (value) => currentPage = value,
               controller: pageController,
-              children: pagesMap.keys
-                  .where((element) =>
-                      lessonsManager.lessonsDownloaded.contains(element))
+              children: lessonsDownloaded
                   .map((e) => LessonPage(
+                        nextLessonFunction: gotoNextLesson,
+                        previousLessonFunction: gotoPreviousLesson,
                         fileNames: pagesMap[e]!,
                         appDirPath: appDirPath,
                         thumbnailPath: e,

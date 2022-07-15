@@ -18,11 +18,15 @@ class LessonPage extends StatefulWidget {
     required this.appDirPath,
     required this.thumbnailPath,
     required this.isChecked,
+    required this.previousLessonFunction,
+    required this.nextLessonFunction,
   }) : super(key: key);
   final List<String> fileNames;
   final String appDirPath;
   final String thumbnailPath;
   final bool isChecked;
+  final Function() previousLessonFunction;
+  final Function() nextLessonFunction;
 
   @override
   State<LessonPage> createState() => _LessonPageState();
@@ -241,7 +245,7 @@ class _LessonPageState extends State<LessonPage> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: InkWell(
-                      // onTap: () => Navigator.of(context).pop(),
+                      onTap: () => widget.previousLessonFunction(),
                       child: Icon(
                         Icons.west,
                         size: 35.w,
@@ -262,7 +266,7 @@ class _LessonPageState extends State<LessonPage> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: InkWell(
-                      // onTap: () => Navigator.of(context).pop(),
+                      onTap: () => widget.nextLessonFunction(),
                       child: Icon(
                         Icons.east,
                         size: 35.w,

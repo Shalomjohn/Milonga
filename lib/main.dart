@@ -12,15 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  void didChangeDependencies() {
-    precacheImage(const AssetImage('assets/icons/purchaseON.png'), context);
-    precacheImage(const AssetImage('assets/icons/shareON.png'), context);
-    precacheImage(const AssetImage('assets/icons/creditsON.png'), context);
-    precacheImage(const AssetImage('assets/icons/play_active.png'), context);
-    super.didChangeDependencies();
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

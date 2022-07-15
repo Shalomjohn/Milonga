@@ -619,6 +619,9 @@ class _InfoPageState extends State<InfoPage> {
                           GestureDetector(
                             onTap: () {
                               _controller.seekTo(const Duration(seconds: 0));
+                              if (_controller.value.isPlaying == false) {
+                                _controller.play();
+                              }
                             },
                             child: Image.asset('assets/icons/play_inactive.png',
                                 height: 55.h),

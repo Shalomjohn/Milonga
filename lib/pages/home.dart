@@ -15,6 +15,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void didChangeDependencies() {
+    precacheImage(const AssetImage('assets/icons/purchaseON.png'), context);
+    precacheImage(const AssetImage('assets/icons/shareON.png'), context);
+    precacheImage(const AssetImage('assets/icons/creditsON.png'), context);
+    precacheImage(const AssetImage('assets/icons/play_active.png'), context);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(

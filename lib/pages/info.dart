@@ -21,6 +21,12 @@ class _InfoPageState extends State<InfoPage> {
   bool showingPlayButton = false;
   bool subscriptionIsMonthly = true;
 
+  // for flashings
+  bool flashPurchase = false;
+  bool flashShare = false;
+  bool flashCredits = false;
+  bool flashRestart = false;
+
   void onPortraitScreenTouch({bool long = false}) {
     if (showingPlayButton) {
       setState(() {
@@ -38,6 +44,100 @@ class _InfoPageState extends State<InfoPage> {
             })),
       );
     }
+  }
+
+  void playRestartFunction() {
+    setState(() {
+      flashRestart = true;
+    });
+    _controller.seekTo(const Duration(seconds: 0));
+    if (_controller.value.isPlaying == false) {
+      _controller.play();
+    }
+    Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        flashRestart = false;
+      });
+    });
+  }
+
+  void creditsFunction() {
+    setState(() {
+      flashCredits = true;
+    });
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.w),
+          topRight: Radius.circular(10.w),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return creditsWidget();
+      },
+    );
+    Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        flashCredits = false;
+      });
+    });
+  }
+
+  void shareFunction() {
+    setState(() {
+      flashShare = true;
+    });
+    Share.share(
+        'Milonga helps you to learn how to dance using your phone. Download now!\nhttps://example.com',
+        subject: 'Introducing Milonga');
+    Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        flashShare = false;
+      });
+    });
+  }
+
+  void purchaseFunction() {
+    setState(() {
+      flashPurchase = true;
+    });
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.w),
+          topRight: Radius.circular(10.w),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+          void monthlyIsClicked() {
+            if (!subscriptionIsMonthly) {
+              setState(() {
+                subscriptionIsMonthly = true;
+              });
+            }
+          }
+
+          void yearlyIsClicked() {
+            if (subscriptionIsMonthly) {
+              setState(() {
+                subscriptionIsMonthly = false;
+              });
+            }
+          }
+
+          return subscriptionWidget(monthlyIsClicked, yearlyIsClicked);
+        });
+      },
+    );
+    Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        flashPurchase = false;
+      });
+    });
   }
 
   Widget roundedContainer(Widget icon) {
@@ -534,50 +634,25 @@ class _InfoPageState extends State<InfoPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () => showModalBottomSheet<void>(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.w),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter setState) {
-                                  void monthlyIsClicked() {
-                                    if (!subscriptionIsMonthly) {
-                                      setState(() {
-                                        subscriptionIsMonthly = true;
-                                      });
-                                    }
-                                  }
-
-                                  void yearlyIsClicked() {
-                                    if (subscriptionIsMonthly) {
-                                      setState(() {
-                                        subscriptionIsMonthly = false;
-                                      });
-                                    }
-                                  }
-
-                                  return subscriptionWidget(
-                                      monthlyIsClicked, yearlyIsClicked);
-                                });
-                              },
-                            ),
+                            onTap: () => purchaseFunction(),
                             child: Padding(
                               padding: EdgeInsets.all(8.w),
-                              child: Image.asset('assets/icons/purchase.png',
+                              child: Image.asset(
+                                  flashPurchase
+                                      ? 'assets/icons/purchaseON.png'
+                                      : 'assets/icons/purchase.png',
                                   height: 45.h),
                             ),
                           ),
                           SizedBox(width: 30.w),
                           InkWell(
-                            onTap: () => Share.share(
-                                'Milonga helps you to learn how to dance using your phone. Download now!\nhttps://example.com',
-                                subject: 'Introducing Milonga'),
+                            onTap: () => shareFunction(),
                             child: Padding(
                               padding: EdgeInsets.all(8.w),
-                              child: Image.asset('assets/icons/share.png',
+                              child: Image.asset(
+                                  flashShare
+                                      ? 'assets/icons/shareON.png'
+                                      : 'assets/icons/share.png',
                                   height: 45.h),
                             ),
                           ),
@@ -617,27 +692,20 @@ class _InfoPageState extends State<InfoPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              _controller.seekTo(const Duration(seconds: 0));
-                              if (_controller.value.isPlaying == false) {
-                                _controller.play();
-                              }
-                            },
-                            child: Image.asset('assets/icons/play_inactive.png',
+                            onTap: () => playRestartFunction(),
+                            child: Image.asset(
+                                flashRestart
+                                    ? 'assets/icons/play_active.png'
+                                    : 'assets/icons/play_inactive.png',
                                 height: 55.h),
                           ),
                           SizedBox(width: 40.w),
                           InkWell(
-                            onTap: () => showModalBottomSheet<void>(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.w),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return creditsWidget();
-                              },
-                            ),
-                            child: Image.asset('assets/icons/credits.png',
+                            onTap: () => creditsFunction(),
+                            child: Image.asset(
+                                flashCredits
+                                    ? 'assets/icons/creditsON.png'
+                                    : 'assets/icons/credits.png',
                                 height: 55.h),
                           ),
                         ],

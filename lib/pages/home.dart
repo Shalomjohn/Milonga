@@ -219,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 35.h),
+                  SizedBox(height: 50.h),
                   Column(
                     children: [
                       Text(

@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '1-12',
+                              'BASIC',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             Text(
-                              'BASIC',
+                              '1-12',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,
@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '13-24',
+                              'INTERMEDIATE',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             Text(
-                              'INTERMEDIATE',
+                              '13-24',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '25-36',
+                              'ADVANCED',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,
@@ -206,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             Text(
-                              'ADVANCED',
+                              '25-36',
                               style: TextStyle(
                                 letterSpacing: 1.5,
                                 fontSize: 20.sp,

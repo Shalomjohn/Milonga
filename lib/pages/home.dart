@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 20.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -175,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 20.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -219,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 25.h),
+                  SizedBox(height: 35.h),
                   Column(
                     children: [
                       Text(

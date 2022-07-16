@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:milonga/pages/lesson.dart';
 import 'package:milonga/pages/lesson_page_view.dart';
 import 'package:milonga/providers/lessons_manager.dart';
+import 'package:milonga/utils/components.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
@@ -171,7 +172,7 @@ class _MenuPageState extends State<MenuPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            'Fetched (${thumbnailToVideosGottenMap[thumbnailAssetName]!}/7)',
+                            'Loading (${thumbnailToVideosGottenMap[thumbnailAssetName]!}/7)',
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
@@ -217,68 +218,70 @@ class _MenuPageState extends State<MenuPage> {
         break;
     }
     Widget menuItem(int index) {
-      Widget child = Column(
-        children: [
-          Container(
-              height: 100.w,
-              width: 100.w,
-              decoration: BoxDecoration(
-                color: primaryTextColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5.w),
-                  topRight: Radius.circular(5.w),
+      Widget child = InkWell(
+          onTap: () => showPurchasePopup(context),
+          child: Column(
+            children: [
+              Container(
+                  height: 100.w,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: primaryTextColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5.w),
+                      topRight: Radius.circular(5.w),
+                    ),
+                  ),
+                  child: (index == 1 && level == 0)
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Content',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Unavailable',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Icon(
+                          Icons.lock,
+                          size: 40.w,
+                          color: Colors.black54,
+                        )),
+              Container(
+                height: 35.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                  color: levelColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(5.w),
+                    bottomRight: Radius.circular(5.w),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    index.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.sp,
+                    ),
+                  ),
                 ),
               ),
-              child: (index == 1 && level == 0)
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Content',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'Unavailable',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    )
-                  : Icon(
-                      Icons.lock,
-                      size: 40.w,
-                      color: Colors.black54,
-                    )),
-          Container(
-            height: 35.h,
-            width: 100.w,
-            decoration: BoxDecoration(
-              color: levelColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(5.w),
-                bottomRight: Radius.circular(5.w),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                index.toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.sp,
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
+            ],
+          ));
       if (levelName == 'BASIC' && index < 4 && index != 1) {
         child = childWithThumbnail(index, levelColor, levelName);
       }

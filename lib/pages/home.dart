@@ -29,9 +29,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              'assets/icons/background_image.png',
+            child: FittedBox(
               fit: BoxFit.fill,
+              child: Image.asset(
+                'assets/icons/background_image.png',
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           SafeArea(

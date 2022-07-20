@@ -369,9 +369,12 @@ class _InfoPageState extends State<InfoPage> {
           Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(
-                  'assets/icons/sky_background.png',
+                child: FittedBox(
                   fit: BoxFit.fill,
+                  child: Image.asset(
+                    'assets/icons/sky_background.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
               SafeArea(

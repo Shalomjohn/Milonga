@@ -140,10 +140,13 @@ class _MenuPageState extends State<MenuPage> {
                                   ? 0.5
                                   : 0),
                         ),
-                        child: Icon(
-                          Icons.done,
-                          color: Colors.white,
-                          size: 40.w,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 30.h, left: 40.w),
+                          child: Icon(
+                            Icons.done,
+                            color: lightGreen,
+                            size: 60.w,
+                          ),
                         ),
                       ),
                     )

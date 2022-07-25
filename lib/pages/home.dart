@@ -51,10 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'LEARN DANCE',
+                      'LEARN & DANCE WITH YOUR PHONE',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        letterSpacing: 1.5,
-                        fontSize: 22.sp,
+                        // letterSpacing: 1.5,
+                        fontSize: 18.sp,
                         color: primaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),

@@ -21,12 +21,13 @@ class MyApp extends StatelessWidget {
           return ChangeNotifierProvider<LessonsManager>(
             create: (context) => LessonsManager(),
             child: MaterialApp(
-              title: 'Dance App',
+              title: 'Milonga',
               theme: ThemeData(
+                fontFamily: "Campton",
                 primarySwatch: Colors.blueGrey,
                 scaffoldBackgroundColor: scaffoldColor,
               ),
-              home: const MyHomePage(title: 'Dance App'),
+              home: const MyHomePage(title: 'Milonga'),
             ),
           );
         });

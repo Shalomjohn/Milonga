@@ -135,7 +135,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'CREDITS',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -144,28 +143,24 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'CREATED and PRODUCED',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'CONCEPT, FILMING, DESING,',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'AUDIO and VIDEO EDITING',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Henryk Gajewski',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -174,7 +169,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'LESSONS & DANCING',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
@@ -182,7 +176,6 @@ class _InfoPageState extends State<InfoPage> {
                 'Arjan Sikking & Marianne van Berlo',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -191,21 +184,18 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'ORIGINAL MUSIC',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'COMPOSED & PERFORMED',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Carel Kraayenhof',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -214,14 +204,12 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'FLUTTER APP CODING',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Remco Tevreden',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -230,14 +218,12 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'iOS PROTOTYPE CODING',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Marcin Kowalczyk',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -246,14 +232,12 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'LOGO DESIGN',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Wytske Wits',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -262,14 +246,12 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'INFO VIDEO APPEARANCE',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Batoul Lakmoush',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -277,7 +259,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'Wouter Bording',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -286,14 +267,12 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'SPECIAL THANKS',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
               Text(
                 'Arjan Sikking',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -301,7 +280,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'Wytske Wits',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -309,7 +287,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'Marcin Gajewski',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
@@ -318,7 +295,6 @@ class _InfoPageState extends State<InfoPage> {
               Text(
                 'COPYRIGHTS',
                 style: TextStyle(
-                  color: Colors.brown,
                   fontSize: 20.sp,
                 ),
               ),
@@ -326,7 +302,6 @@ class _InfoPageState extends State<InfoPage> {
                 '© Henryk Gajewski, Since 2014',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.brown,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),

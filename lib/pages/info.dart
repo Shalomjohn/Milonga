@@ -77,12 +77,11 @@ class _InfoPageState extends State<InfoPage> {
       builder: (BuildContext context) {
         return creditsWidget();
       },
-    );
-    Timer(const Duration(milliseconds: 300), () {
-      setState(() {
+    ).whenComplete(
+      () => setState(() {
         flashCredits = false;
-      });
-    });
+      }),
+    );
   }
 
   void shareFunction() {
@@ -422,10 +421,28 @@ class _InfoPageState extends State<InfoPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 15.h),
+                      SizedBox(height: 5.h),
+                      Text(
+                        "INFO",
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                          color: primaryTextColor,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          GestureDetector(
+                            onTap: () => playRestartFunction(),
+                            child: Image.asset(
+                                flashRestart
+                                    ? 'assets/icons/play_inactive.png'
+                                    : 'assets/icons/play_active.png',
+                                height: 45.h),
+                          ),
+                          SizedBox(width: 30.w),
                           InkWell(
                             onTap: () => purchaseFunction(),
                             child: Padding(
@@ -449,9 +466,18 @@ class _InfoPageState extends State<InfoPage> {
                                   height: 45.h),
                             ),
                           ),
+                          SizedBox(width: 30.w),
+                          InkWell(
+                            onTap: () => creditsFunction(),
+                            child: Image.asset(
+                                flashCredits
+                                    ? 'assets/icons/creditsON.png'
+                                    : 'assets/icons/credits.png',
+                                height: 45.h),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 15.h),
+                      SizedBox(height: 20.h),
                       _controller.value.isInitialized
                           ? Stack(
                               children: [
@@ -481,41 +507,20 @@ class _InfoPageState extends State<InfoPage> {
                             )
                           : Container(height: 300.h),
                       SizedBox(height: 20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () => playRestartFunction(),
-                            child: Image.asset(
-                                flashRestart
-                                    ? 'assets/icons/play_active.png'
-                                    : 'assets/icons/play_inactive.png',
-                                height: 55.h),
-                          ),
-                          SizedBox(width: 40.w),
-                          InkWell(
-                            onTap: () => creditsFunction(),
-                            child: Image.asset(
-                                flashCredits
-                                    ? 'assets/icons/creditsON.png'
-                                    : 'assets/icons/credits.png',
-                                height: 55.h),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15.h),
                       Text(
-                        'LEARN AND DANCE WITH YOUR PHONE',
+                        'DANCE WITH YOUR PHONE',
                         style: TextStyle(
                           color: primaryTextColor,
-                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.sp,
                         ),
                       ),
                       Text(
                         'EVERYWHERE',
                         style: TextStyle(
                           color: primaryTextColor,
-                          fontSize: 25.sp,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50.sp,
                         ),
                       ),
                     ],

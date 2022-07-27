@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:milonga/pages/menu.dart';
 import 'package:milonga/utils/appColors.dart';
 import 'package:milonga/utils/components.dart';
+import 'package:milonga/utils/customButton.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
@@ -24,6 +24,7 @@ class _InfoPageState extends State<InfoPage> {
 
   // for flashings
   bool flashPurchase = false;
+  bool flashPurchase2 = false;
   bool flashShare = false;
   bool flashCredits = false;
   bool flashRestart = false;
@@ -64,24 +65,8 @@ class _InfoPageState extends State<InfoPage> {
 
   void creditsFunction() {
     setState(() {
-      flashCredits = true;
+      flashCredits = !flashCredits;
     });
-    showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.w),
-          topRight: Radius.circular(10.w),
-        ),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return creditsWidget();
-      },
-    ).whenComplete(
-      () => setState(() {
-        flashCredits = false;
-      }),
-    );
   }
 
   void shareFunction() {
@@ -125,190 +110,188 @@ class _InfoPageState extends State<InfoPage> {
 
   Widget creditsWidget() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.w),
+      color: Colors.white,
       child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 40.h),
-              Text(
-                'CREDITS',
-                style: TextStyle(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 40.h),
+            Text(
+              'CREDITS',
+              style: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(height: 10.h),
-              Text(
-                'CREATED and PRODUCED',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              'CREATED and PRODUCED',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'CONCEPT, FILMING, DESING,',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'CONCEPT, FILMING, DESING,',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'AUDIO and VIDEO EDITING',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'AUDIO and VIDEO EDITING',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Henryk Gajewski',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Henryk Gajewski',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'LESSONS & DANCING',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'LESSONS & DANCING',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Arjan Sikking & Marianne van Berlo',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Arjan Sikking & Marianne van Berlo',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'ORIGINAL MUSIC',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'ORIGINAL MUSIC',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'COMPOSED & PERFORMED',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'COMPOSED & PERFORMED',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Carel Kraayenhof',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Carel Kraayenhof',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'FLUTTER APP CODING',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'FLUTTER APP CODING',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Remco Tevreden',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Remco Tevreden',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'iOS PROTOTYPE CODING',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'iOS PROTOTYPE CODING',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Marcin Kowalczyk',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Marcin Kowalczyk',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'LOGO DESIGN',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'LOGO DESIGN',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Wytske Wits',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Wytske Wits',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'INFO VIDEO APPEARANCE',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'INFO VIDEO APPEARANCE',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Batoul Lakmoush',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Batoul Lakmoush',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              Text(
-                'Wouter Bording',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Wouter Bording',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'SPECIAL THANKS',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'SPECIAL THANKS',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                'Arjan Sikking',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Arjan Sikking',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              Text(
-                'Wytske Wits',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Wytske Wits',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              Text(
-                'Marcin Gajewski',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              'Marcin Gajewski',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 15.h),
-              Text(
-                'COPYRIGHTS',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
+            ),
+            SizedBox(height: 15.h),
+            Text(
+              'COPYRIGHTS',
+              style: TextStyle(
+                fontSize: 20.sp,
               ),
-              Text(
-                '© Henryk Gajewski, Since 2014',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.sp,
-                ),
+            ),
+            Text(
+              '© Henryk Gajewski, Since 2014',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-              SizedBox(height: 40.h),
-            ],
-          ),
+            ),
+            SizedBox(height: 40.h),
+          ],
         ),
       ),
     );
@@ -352,154 +335,153 @@ class _InfoPageState extends State<InfoPage> {
                 ),
               ),
               SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      Stack(
-                        children: [
-                          InkWell(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.h),
+                    Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 15.w, top: 5.h),
+                          child: FlashingButton(
                             onTap: () => Navigator.of(context).pop(),
-                            child: Container(
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(left: 20.w, top: 5.h),
-                                child: Image.asset('assets/icons/arrowback.png',
-                                    height: 35.h)),
+                            iconPath: 'assets/icons/arrowback.png',
+                            iconHeight: 35.h,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 35.h,
-                            child: FittedBox(
-                              fit: BoxFit.fill,
-                              child:
-                                  Image.asset('assets/icons/milonga_text.png'),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.only(right: 15.w),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isMuted = !isMuted;
-                                });
-                                isMuted
-                                    ? _controller.setVolume(0)
-                                    : _controller.setVolume(1);
-                              },
-                              child: isMuted
-                                  ? Image.asset('assets/icons/audio.png',
-                                      height: 35.h)
-                                  : Image.asset('assets/icons/audioON.png',
-                                      height: 35.h),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5.h),
-                      Text(
-                        "INFO",
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                          color: primaryTextColor,
                         ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 35.h,
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image.asset('assets/icons/milonga_text.png'),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.only(right: 15.w),
+                          child: FlashingButton(
+                            onTap: () {
+                              setState(() {
+                                isMuted = !isMuted;
+                              });
+                              isMuted
+                                  ? _controller.setVolume(0)
+                                  : _controller.setVolume(1);
+                            },
+                            iconHeight: 35.h,
+                            iconPath: isMuted
+                                ? 'assets/icons/audio.png'
+                                : 'assets/icons/audioON.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5.h),
+                    Text(
+                      "INFO",
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                        color: primaryTextColor,
                       ),
-                      SizedBox(height: 10.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () => playRestartFunction(),
-                            child: Image.asset(
-                                flashRestart
-                                    ? 'assets/icons/play_inactive.png'
-                                    : 'assets/icons/play_active.png',
-                                height: 45.h),
-                          ),
-                          SizedBox(width: 30.w),
-                          InkWell(
-                            onTap: () => purchaseFunction(),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.w),
-                              child: Image.asset(
-                                  flashPurchase
-                                      ? 'assets/icons/purchaseON.png'
-                                      : 'assets/icons/purchase.png',
-                                  height: 45.h),
-                            ),
-                          ),
-                          SizedBox(width: 30.w),
-                          InkWell(
-                            onTap: () => shareFunction(),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.w),
-                              child: Image.asset(
-                                  flashShare
-                                      ? 'assets/icons/shareON.png'
-                                      : 'assets/icons/share.png',
-                                  height: 45.h),
-                            ),
-                          ),
-                          SizedBox(width: 30.w),
-                          InkWell(
-                            onTap: () => creditsFunction(),
-                            child: Image.asset(
-                                flashCredits
-                                    ? 'assets/icons/creditsON.png'
-                                    : 'assets/icons/credits.png',
-                                height: 45.h),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.h),
-                      _controller.value.isInitialized
-                          ? Stack(
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FlashingButton(
+                          onTap: playRestartFunction,
+                          iconPath: flashRestart
+                              ? 'assets/icons/play_active.png'
+                              : 'assets/icons/play_inactive.png',
+                        ),
+                        SizedBox(width: 30.w),
+                        FlashingButton(
+                          onTap: purchaseFunction,
+                          iconPath: flashPurchase
+                              ? "assets/icons/purchaseON.png"
+                              : "assets/icons/purchase.png",
+                        ),
+                        SizedBox(width: 30.w),
+                        FlashingButton(
+                          onTap: shareFunction,
+                          iconPath: flashShare
+                              ? 'assets/icons/shareON.png'
+                              : 'assets/icons/share.png',
+                        ),
+                        SizedBox(width: 30.w),
+                        FlashingButton(
+                          onTap: creditsFunction,
+                          iconPath: flashCredits
+                              ? 'assets/icons/creditsON.png'
+                              : 'assets/icons/credits.png',
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Stack(
+                          children: [
+                            Column(
                               children: [
-                                AspectRatio(
-                                  aspectRatio: _controller.value.aspectRatio,
-                                  child: VideoPlayer(_controller),
-                                ),
-                                Positioned.fill(
-                                  child: InkWell(
-                                    onTap: () => onPortraitScreenTouch(),
-                                    child: showingPlayButton
-                                        ? SizedBox(
-                                            height: 100,
-                                            width: 100,
-                                            child: Icon(
-                                              _controller.value.isPlaying
-                                                  ? Icons.play_circle
-                                                  : Icons.pause_circle,
-                                              size: 80.w,
-                                              color: primaryTextColor,
+                                _controller.value.isInitialized
+                                    ? Stack(
+                                        children: [
+                                          AspectRatio(
+                                            aspectRatio:
+                                                _controller.value.aspectRatio,
+                                            child: VideoPlayer(_controller),
+                                          ),
+                                          Positioned.fill(
+                                            child: InkWell(
+                                              onTap: () =>
+                                                  onPortraitScreenTouch(),
+                                              child: showingPlayButton
+                                                  ? SizedBox(
+                                                      height: 100,
+                                                      width: 100,
+                                                      child: Icon(
+                                                        _controller
+                                                                .value.isPlaying
+                                                            ? Icons.play_circle
+                                                            : Icons
+                                                                .pause_circle,
+                                                        size: 80.w,
+                                                        color: primaryTextColor,
+                                                      ),
+                                                    )
+                                                  : Container(),
                                             ),
                                           )
-                                        : Container(),
+                                        ],
+                                      )
+                                    : Container(height: 300.h),
+                                SizedBox(height: 20.h),
+                                Text(
+                                  'DANCE WITH YOUR PHONE',
+                                  style: TextStyle(
+                                    color: primaryTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25.sp,
                                   ),
-                                )
+                                ),
+                                Text(
+                                  'EVERYWHERE',
+                                  style: TextStyle(
+                                    color: primaryTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 50.sp,
+                                  ),
+                                ),
                               ],
-                            )
-                          : Container(height: 300.h),
-                      SizedBox(height: 20.h),
-                      Text(
-                        'DANCE WITH YOUR PHONE',
-                        style: TextStyle(
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.sp,
+                            ),
+                            if (flashCredits) creditsWidget()
+                          ],
                         ),
                       ),
-                      Text(
-                        'EVERYWHERE',
-                        style: TextStyle(
-                          color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 50.sp,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

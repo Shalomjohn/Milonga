@@ -9,6 +9,7 @@ import 'package:milonga/pages/lesson.dart';
 import 'package:milonga/pages/lesson_page_view.dart';
 import 'package:milonga/providers/lessons_manager.dart';
 import 'package:milonga/utils/components.dart';
+import 'package:milonga/utils/customButton.dart';
 import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
@@ -226,42 +227,39 @@ class _MenuPageState extends State<MenuPage> {
           child: Column(
             children: [
               Container(
-                  height: 100.w,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                    color: primaryTextColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5.w),
-                      topRight: Radius.circular(5.w),
-                    ),
+                height: 100.w,
+                width: 100.w,
+                decoration: BoxDecoration(
+                  color: primaryTextColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5.w),
+                    topRight: Radius.circular(5.w),
                   ),
-                  child: (index == 1 && level == 0)
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Content',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                ),
+                child: (index == 1 && level == 0)
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Content',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              'Unavailable',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          ),
+                          Text(
+                            'Unavailable',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        )
-                      : Icon(
-                          Icons.lock,
-                          size: 40.w,
-                          color: Colors.black54,
-                        )),
+                          ),
+                        ],
+                      )
+                    : Container(),
+              ),
               Container(
                 height: 35.h,
                 width: 100.w,
@@ -335,13 +333,10 @@ class _MenuPageState extends State<MenuPage> {
                       Container(
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 20.w),
-                        child: InkWell(
+                        child: FlashingButton(
                           onTap: () => Navigator.of(context).pop(),
-                          child: Icon(
-                            Icons.west,
-                            size: 30.w,
-                            color: primaryTextColor,
-                          ),
+                          iconPath: 'assets/icons/arrowback.png',
+                          iconHeight: 25.h,
                         ),
                       ),
                       Container(
@@ -356,13 +351,13 @@ class _MenuPageState extends State<MenuPage> {
                         alignment: Alignment.centerRight,
                         padding: EdgeInsets.only(right: 20.w),
                         height: 25.h,
-                        child: InkWell(
+                        child: FlashingButton(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const InfoPage(),
                             ),
                           ),
-                          child: Image.asset('assets/icons/info_active.png'),
+                          iconPath: 'assets/icons/info_active.png',
                         ),
                       ),
                     ],

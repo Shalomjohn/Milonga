@@ -49,6 +49,9 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   void playRestartFunction() {
+    if (flashCredits) {
+      setState(() => flashCredits = false);
+    }
     setState(() {
       flashRestart = true;
     });
@@ -70,6 +73,9 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   void shareFunction() {
+    if (flashCredits) {
+      setState(() => flashCredits = false);
+    }
     setState(() {
       flashShare = true;
     });
@@ -84,6 +90,9 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   void purchaseFunction() {
+    if (flashCredits) {
+      setState(() => flashCredits = false);
+    }
     setState(() {
       flashPurchase = true;
     });

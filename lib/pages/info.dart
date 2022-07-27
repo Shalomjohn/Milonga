@@ -343,7 +343,9 @@ class _InfoPageState extends State<InfoPage> {
                         Padding(
                           padding: EdgeInsets.only(left: 15.w, top: 5.h),
                           child: FlashingButton(
-                            onTap: () => Navigator.of(context).pop(),
+                            onTap: () => flashCredits
+                                ? setState(() => flashCredits = false)
+                                : Navigator.of(context).pop(),
                             iconPath: 'assets/icons/arrowback.png',
                             iconHeight: 35.h,
                           ),

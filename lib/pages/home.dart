@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             letterSpacing: 1.5,
                             fontSize: 22.sp,
                             color: primaryTextColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

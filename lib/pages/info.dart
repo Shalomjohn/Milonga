@@ -128,7 +128,7 @@ class _InfoPageState extends State<InfoPage> {
             Text(
               'CREDITS',
               style: TextStyle(
-                fontSize: 22.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -153,10 +153,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Henryk Gajewski',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -168,10 +165,7 @@ class _InfoPageState extends State<InfoPage> {
             Text(
               'Arjan Sikking & Marianne van Berlo',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -188,10 +182,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Carel Kraayenhof',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -202,10 +193,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Remco Tevreden',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -216,10 +204,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Marcin Kowalczyk',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -230,10 +215,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Wytske Wits',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -244,17 +226,11 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Batoul Lakmoush',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             Text(
               'Wouter Bording',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -265,24 +241,15 @@ class _InfoPageState extends State<InfoPage> {
             ),
             Text(
               'Arjan Sikking',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             Text(
               'Wytske Wits',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             Text(
               'Marcin Gajewski',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 15.h),
             Text(
@@ -294,10 +261,7 @@ class _InfoPageState extends State<InfoPage> {
             Text(
               '© Henryk Gajewski, Since 2014',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
             SizedBox(height: 40.h),
           ],

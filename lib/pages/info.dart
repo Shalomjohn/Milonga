@@ -450,8 +450,8 @@ class _InfoPageState extends State<InfoPage> {
                                                   onPortraitScreenTouch(),
                                               child: showingPlayButton
                                                   ? SizedBox(
-                                                      height: 100,
-                                                      width: 100,
+                                                      height: 100.w,
+                                                      width: 100.w,
                                                       child: Icon(
                                                         _controller
                                                                 .value.isPlaying
@@ -473,8 +473,8 @@ class _InfoPageState extends State<InfoPage> {
                                   'DANCE WITH YOUR PHONE',
                                   style: TextStyle(
                                     color: primaryTextColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25.sp,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 22.sp,
                                   ),
                                 ),
                                 Text(
@@ -482,7 +482,7 @@ class _InfoPageState extends State<InfoPage> {
                                   style: TextStyle(
                                     color: primaryTextColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 35.sp,
+                                    fontSize: 45.sp,
                                   ),
                                 ),
                               ],

@@ -31,7 +31,7 @@ class _FlashingButtonState extends State<FlashingButton> {
           flashButton = true;
         });
         Timer(
-          const Duration(milliseconds: 50),
+          const Duration(milliseconds: 200),
           (() {
             setState(() {
               flashButton = false;

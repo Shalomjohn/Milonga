@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:milonga/pages/lesson.dart';
 import 'package:milonga/pages/lesson_page_view.dart';
 import 'package:milonga/providers/lessons_manager.dart';
 import 'package:milonga/utils/components.dart';
@@ -14,7 +12,6 @@ import 'package:milonga/utils/file_downloader.dart';
 import 'package:milonga/utils/thumbnail_maps.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/appColors.dart';
 import 'info.dart';
@@ -296,10 +293,10 @@ class _MenuPageState extends State<MenuPage> {
             levelName,
             style: TextStyle(fontSize: 20.sp, color: primaryTextColor),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 25.h),
           Wrap(
-            spacing: 15.w,
-            runSpacing: 15.h,
+            spacing: 20.w,
+            runSpacing: 20.h,
             children: List.generate(12, (index) => menuItem(index + 1)),
           )
         ],
@@ -362,6 +359,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 10.h),
                   Expanded(
                     child: PageView(
                       controller: pageController,

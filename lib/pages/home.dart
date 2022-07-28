@@ -55,13 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         // letterSpacing: 1.5,
-                        fontSize: 18.sp,
+                        fontSize: 20.sp,
                         color: primaryTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: 40.h),
+                  SizedBox(height: 60.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 80.w,
-                          width: 80.w,
+                          height: 85.w,
+                          width: 85.w,
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image.asset('assets/icons/milonga.png'),
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           'INFO',
                           style: TextStyle(
                             letterSpacing: 1.5,
-                            fontSize: 20.sp,
+                            fontSize: 22.sp,
                             color: primaryTextColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 50.h),
+                  SizedBox(height: 60.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -101,8 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: [
                         SizedBox(
-                            height: 80.w,
-                            width: 80.w,
+                            height: 85.w,
+                            width: 85.w,
                             child: FittedBox(
                               fit: BoxFit.fill,
                               child: Image.asset(
@@ -113,10 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'BASIC',
+                              'Basic',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               '1-12',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 30.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -145,8 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: [
                         SizedBox(
-                            height: 80.w,
-                            width: 80.w,
+                            height: 85.w,
+                            width: 85.w,
                             child: FittedBox(
                               fit: BoxFit.fill,
                               child: Image.asset(
@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               'INTERMEDIATE',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               '13-24',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 30.h),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -189,8 +189,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       children: [
                         SizedBox(
-                            height: 80.w,
-                            width: 80.w,
+                            height: 85.w,
+                            width: 85.w,
                             child: FittedBox(
                               fit: BoxFit.fill,
                               child: Image.asset(
@@ -204,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               'ADVANCED',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -213,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               '25-36',
                               style: TextStyle(
                                 letterSpacing: 1.5,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                                 color: primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -223,14 +223,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 50.h),
+                  SizedBox(height: 60.h),
                   Column(
                     children: [
                       Text(
                         '3  LEVELS - 36  LESSONS',
                         style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 16.sp,
+                          fontSize: 18.sp,
                           color: primaryTextColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -239,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         '252  MOVES',
                         style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 16.sp,
+                          fontSize: 18.sp,
                           color: primaryTextColor,
                           fontWeight: FontWeight.bold,
                         ),

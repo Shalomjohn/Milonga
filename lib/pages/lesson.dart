@@ -343,7 +343,7 @@ class _LessonPageState extends State<LessonPage> {
                           });
                       },
                       child: Padding(
-                        padding: EdgeInsets.only(right: 10.w),
+                        padding: EdgeInsets.only(right: 15.w),
                         child: roundedContainer(
                             Padding(
                               padding: EdgeInsets.all(20.w),
@@ -399,7 +399,8 @@ class _LessonPageState extends State<LessonPage> {
               ? Container(
                   alignment: Alignment.topRight,
                   color: scaffoldColor.withOpacity(0.6),
-                  width: MediaQuery.of(context).size.height / 2,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -436,17 +437,18 @@ class _LessonPageState extends State<LessonPage> {
                                 padding: EdgeInsets.only(right: 10.w),
                                 child: roundedContainer(
                                     Padding(
-                                      padding: EdgeInsets.all(5.w),
+                                      padding: EdgeInsets.all(8.w),
                                       child: Text(
                                         innerIndex.toString(),
                                         style: TextStyle(
-                                          fontSize: 16.sp,
+                                          fontSize: 60.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                         ),
                                       ),
                                     ),
-                                    width: videoSelected == index ? 4.w : null),
+                                    width:
+                                        videoSelected == index ? 3.w : 1.5.w),
                               ),
                             );
                           },

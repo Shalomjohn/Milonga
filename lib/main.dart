@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(392, 781),
+        minTextAdapt: true,
+        designSize: const Size(414, 869),
         builder: (context, child) {
           return ChangeNotifierProvider<LessonsManager>(
             create: (context) => LessonsManager(),

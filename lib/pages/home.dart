@@ -159,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
@@ -167,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -201,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
@@ -209,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],

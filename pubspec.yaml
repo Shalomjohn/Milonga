@@ -99,6 +99,8 @@ flutter:
         - asset: assets/fonts/Campton/CamptonBook.otf
         - asset: assets/fonts/Campton/CamptonBookItalic.otf
           style: italic
+        - asset: assets/fonts/Campton/CamptonSemiBold.otf
+          weight: 600
         - asset: assets/fonts/Campton/CamptonBold.otf
           weight: 700
   #

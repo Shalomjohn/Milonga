@@ -55,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         // letterSpacing: 1.5,
+                        fontWeight: FontWeight.w600,
                         fontSize: 20.sp,
                         color: primaryTextColor,
                         // fontWeight: FontWeight.bold,
@@ -118,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
@@ -126,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],

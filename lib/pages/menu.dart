@@ -119,7 +119,7 @@ class _MenuPageState extends State<MenuPage> {
                       thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
                 }
               }
-              if (downloadsCancelled == false) {
+              if (!downloadsCancelled) {
                 lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
               }
             }

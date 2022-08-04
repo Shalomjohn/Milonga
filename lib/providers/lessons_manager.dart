@@ -1,31 +1,13 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LessonsManager with ChangeNotifier {
   List<String> lessonsDownloaded = [];
   List<String> lessonsCompleted = [];
-
-  List<CancelToken> cancelTokenList = [];
-
   String chosenThumbnail = '';
 
   LessonsManager() {
     loadStoredData();
-  }
-
-  void addCancelToken(CancelToken cancelToken) {
-    cancelTokenList.add(cancelToken);
-  }
-
-  void cancelTokens() {
-    for (var element in cancelTokenList) {
-      element.cancel();
-    }
-  }
-
-  void clearCancelTokens() {
-    cancelTokenList = [];
   }
 
   void setCurrentThumbnail(String assetName) {

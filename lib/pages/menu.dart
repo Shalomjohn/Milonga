@@ -33,7 +33,7 @@ class _MenuPageState extends State<MenuPage> {
   PageController? pageController;
   int currentPage = 0;
   Directory? appDir;
-  LessonsManager? rootLessonsManager;
+  bool downloadsCancelled = false;
 
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
@@ -44,7 +44,6 @@ class _MenuPageState extends State<MenuPage> {
       thumbnailToVideosGottenMap[thumbnailAssetName] = 0;
     }
     return Consumer<LessonsManager>(builder: (context, lessonsManager, child) {
-      rootLessonsManager = lessonsManager;
       return InkWell(
         onTap: () async {
           if (lessonsManager.lessonsDownloaded.contains(thumbnailAssetName)) {
@@ -99,7 +98,6 @@ class _MenuPageState extends State<MenuPage> {
               appDir = await getApplicationDocumentsDirectory();
               String fullPath = "${appDir!.path}/$fileName";
               print('full path $fullPath');
-              lessonsManager.addCancelToken(cancelToken);
               await downloadFile(
                   dio, url, fullPath, downloadProgress, cancelToken);
             }
@@ -114,14 +112,15 @@ class _MenuPageState extends State<MenuPage> {
               List<Map<String, String>> urlList = lessonThumbnailToURL[
                   levelName.toLowerCase()]![thumbnailAssetName]!;
               for (var element in urlList) {
-                await downloadLevelVideo(element['url']!, element['fileName']!);
-                thumbnailToVideosGottenMap[thumbnailAssetName] =
-                    thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+                if (!downloadsCancelled) {
+                  await downloadLevelVideo(
+                      element['url']!, element['fileName']!);
+                  thumbnailToVideosGottenMap[thumbnailAssetName] =
+                      thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
+                }
               }
-              String lastFileName = urlList.last['fileName']!;
-              if (await File("${appDir!.path}/$lastFileName").exists()) {
+              if (downloadsCancelled == false) {
                 lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
-                lessonsManager.clearCancelTokens();
               }
             }
           }
@@ -327,9 +326,7 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   void dispose() {
-    LessonsManager lessonsManager =
-        Provider.of<LessonsManager>(context, listen: false);
-    lessonsManager.cancelTokens();
+    downloadsCancelled = true;
     super.dispose();
   }
 

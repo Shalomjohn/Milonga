@@ -33,8 +33,7 @@ class _MenuPageState extends State<MenuPage> {
   PageController? pageController;
   int currentPage = 0;
   Directory? appDir;
-
-  List<CancelToken> cancelTokenList = [];
+  LessonsManager? rootLessonsManager;
 
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
@@ -45,6 +44,7 @@ class _MenuPageState extends State<MenuPage> {
       thumbnailToVideosGottenMap[thumbnailAssetName] = 0;
     }
     return Consumer<LessonsManager>(builder: (context, lessonsManager, child) {
+      rootLessonsManager = lessonsManager;
       return InkWell(
         onTap: () async {
           if (lessonsManager.lessonsDownloaded.contains(thumbnailAssetName)) {
@@ -99,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
               appDir = await getApplicationDocumentsDirectory();
               String fullPath = "${appDir!.path}/$fileName";
               print('full path $fullPath');
-              cancelTokenList.add(cancelToken);
+              lessonsManager.addCancelToken(cancelToken);
               await downloadFile(
                   dio, url, fullPath, downloadProgress, cancelToken);
             }
@@ -118,10 +118,10 @@ class _MenuPageState extends State<MenuPage> {
                 thumbnailToVideosGottenMap[thumbnailAssetName] =
                     thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
               }
-              String lastFilePath = urlList.last['fileName']!;
-              if (await File(lastFilePath).exists()) {
+              String lastFileName = urlList.last['fileName']!;
+              if (await File("${appDir!.path}/$lastFileName").exists()) {
                 lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
-                cancelTokenList = [];
+                lessonsManager.clearCancelTokens();
               }
             }
           }
@@ -327,9 +327,9 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   void dispose() {
-    for (var element in cancelTokenList) {
-      element.cancel();
-    }
+    LessonsManager lessonsManager =
+        Provider.of<LessonsManager>(context, listen: false);
+    lessonsManager.cancelTokens();
     super.dispose();
   }
 

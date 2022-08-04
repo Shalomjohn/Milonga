@@ -34,6 +34,8 @@ class _MenuPageState extends State<MenuPage> {
   int currentPage = 0;
   Directory? appDir;
 
+  List<CancelToken> cancelTokenList = [];
+
   Widget childWithThumbnail(int index, Color levelColor, String levelName) {
     String thumbnailAssetName =
         "assets/icons/lessons/${levelName.toLowerCase()}/${index}_icon.png";
@@ -97,7 +99,9 @@ class _MenuPageState extends State<MenuPage> {
               appDir = await getApplicationDocumentsDirectory();
               String fullPath = "${appDir!.path}/$fileName";
               print('full path $fullPath');
-              await downloadFile(dio, url, fullPath, downloadProgress);
+              cancelTokenList.add(cancelToken);
+              await downloadFile(
+                  dio, url, fullPath, downloadProgress, cancelToken);
             }
 
             if (!(downloadingMap[thumbnailAssetName]! >= 0.0000001) &&
@@ -114,7 +118,11 @@ class _MenuPageState extends State<MenuPage> {
                 thumbnailToVideosGottenMap[thumbnailAssetName] =
                     thumbnailToVideosGottenMap[thumbnailAssetName]! + 1;
               }
-              lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
+              String lastFilePath = urlList.last['fileName']!;
+              if (await File(lastFilePath).exists()) {
+                lessonsManager.addToLessonsDownloaded(thumbnailAssetName);
+                cancelTokenList = [];
+              }
             }
           }
         },
@@ -315,6 +323,14 @@ class _MenuPageState extends State<MenuPage> {
   void initState() {
     setupPage();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (var element in cancelTokenList) {
+      element.cancel();
+    }
+    super.dispose();
   }
 
   @override

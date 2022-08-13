@@ -30,10 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Positioned.fill(
             child: FittedBox(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               child: Image.asset(
                 'assets/icons/background_image.png',
-                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -45,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 20.h),
                   Image.asset(
                     'assets/icons/milonga_text.png',
-                    height: 60.h,
+                    height: 50.h,
                   ),
                   SizedBox(height: 10.h),
                   Align(
@@ -58,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontWeight: FontWeight.w600,
                         fontSize: 20.sp,
                         color: primaryTextColor,
-                        // fontWeight: FontWeight.bold,
+                        // fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -86,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             letterSpacing: 1.5,
                             fontSize: 22.sp,
                             color: primaryTextColor,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -163,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
@@ -172,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -207,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
@@ -216,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 letterSpacing: 1.5,
                                 fontSize: 22.sp,
                                 color: primaryTextColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -233,16 +232,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           letterSpacing: 1.5,
                           fontSize: 18.sp,
                           color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        '252  MOVES',
+                        '252  VIDEOS',
                         style: TextStyle(
                           letterSpacing: 1.5,
                           fontSize: 18.sp,
                           color: primaryTextColor,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],

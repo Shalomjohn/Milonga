@@ -285,24 +285,24 @@ class _LessonPageState extends State<LessonPage> {
                             aspectRatio: _controller!.value.aspectRatio,
                             child: VideoPlayer(_controller!),
                           ),
-                          Positioned.fill(
-                            child: InkWell(
-                              onTap: () => onPortraitScreenTouch(),
-                              child: showingPlayButton
-                                  ? SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: Icon(
-                                        _controller!.value.isPlaying
-                                            ? Icons.play_circle
-                                            : Icons.pause_circle,
-                                        size: 80.w,
-                                        color: primaryTextColor,
-                                      ),
-                                    )
-                                  : Container(),
-                            ),
-                          )
+                          // Positioned.fill(
+                          //   child: InkWell(
+                          //     onTap: () => onPortraitScreenTouch(),
+                          //     child: showingPlayButton
+                          //         ? SizedBox(
+                          //             height: 100,
+                          //             width: 100,
+                          //             child: Icon(
+                          //               _controller!.value.isPlaying
+                          //                   ? Icons.play_circle
+                          //                   : Icons.pause_circle,
+                          //               size: 80.w,
+                          //               color: primaryTextColor,
+                          //             ),
+                          //           )
+                          //         : Container(),
+                          //   ),
+                          // )
                         ],
                       )
                     : SizedBox(

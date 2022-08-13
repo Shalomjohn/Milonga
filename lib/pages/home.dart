@@ -17,8 +17,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didChangeDependencies() {
     precacheImage(const AssetImage('assets/icons/purchaseON.png'), context);
+    precacheImage(const AssetImage('assets/icons/purchase.png'), context);
     precacheImage(const AssetImage('assets/icons/shareON.png'), context);
+    precacheImage(const AssetImage('assets/icons/share.png'), context);
     precacheImage(const AssetImage('assets/icons/creditsON.png'), context);
+    precacheImage(const AssetImage('assets/icons/credits.png'), context);
+    precacheImage(const AssetImage('assets/icons/play_inactive.png'), context);
     precacheImage(const AssetImage('assets/icons/play_active.png'), context);
     super.didChangeDependencies();
   }

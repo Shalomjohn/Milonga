@@ -52,6 +52,9 @@ class _InfoPageState extends State<InfoPage> {
     if (flashCredits) {
       setState(() => flashCredits = false);
     }
+    if (flashPurchase) {
+      setState(() => flashPurchase = false);
+    }
     setState(() {
       flashRestart = true;
     });
@@ -67,9 +70,20 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   void creditsFunction() {
-    setState(() {
-      flashCredits = !flashCredits;
-    });
+    if (flashCredits) {
+      setState(() {
+        flashCredits = false;
+        flashRestart = false;
+        _controller.play();
+      });
+    } else {
+      setState(() {
+        flashPurchase = false;
+        flashCredits = true;
+        flashRestart = true;
+        _controller.pause();
+      });
+    }
   }
 
   void shareFunction() {
@@ -77,31 +91,40 @@ class _InfoPageState extends State<InfoPage> {
       setState(() => flashCredits = false);
     }
     setState(() {
+      flashRestart = true;
+      _controller.pause();
       flashShare = true;
     });
-    Share.share(
-        'Milonga helps you to learn how to dance using your phone. Download now!\nhttps://example.com',
-        subject: 'Introducing Milonga');
-    Timer(const Duration(milliseconds: 300), () {
-      setState(() {
-        flashShare = false;
-      });
-    });
+    Share.shareWithResult(
+      'Milonga helps you to learn how to dance using your phone. Download now!\nhttps://example.com',
+      subject: 'Introducing Milonga',
+    ).then((value) => setState(() {
+          flashRestart = false;
+          _controller.play();
+          flashShare = false;
+        }));
+    // Timer(const Duration(milliseconds: 300), () {
+    //   setState(() {
+    //     flashShare = false;
+    //   });
+    // });
   }
 
   void purchaseFunction() {
-    if (flashCredits) {
-      setState(() => flashCredits = false);
-    }
-    setState(() {
-      flashPurchase = true;
-    });
-    showPurchasePopup(context);
-    Timer(const Duration(milliseconds: 300), () {
+    if (flashPurchase) {
       setState(() {
         flashPurchase = false;
+        flashRestart = false;
+        _controller.play();
       });
-    });
+    } else {
+      setState(() {
+        flashCredits = false;
+        flashPurchase = true;
+        flashRestart = true;
+        _controller.pause();
+      });
+    }
   }
 
   Widget roundedContainer(Widget icon) {
@@ -367,8 +390,8 @@ class _InfoPageState extends State<InfoPage> {
                         FlashingButton(
                           onTap: playRestartFunction,
                           iconPath: flashRestart
-                              ? 'assets/icons/play_active.png'
-                              : 'assets/icons/play_inactive.png',
+                              ? 'assets/icons/play_inactive.png'
+                              : 'assets/icons/play_active.png',
                         ),
                         SizedBox(width: 30.w),
                         FlashingButton(
@@ -394,68 +417,84 @@ class _InfoPageState extends State<InfoPage> {
                       ],
                     ),
                     SizedBox(height: 20.h),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Stack(
-                          children: [
-                            Column(
+                    flashPurchase
+                        ? Expanded(
+                            child: Stack(
                               children: [
-                                _controller.value.isInitialized
-                                    ? Stack(
-                                        children: [
-                                          AspectRatio(
-                                            aspectRatio:
-                                                _controller.value.aspectRatio,
-                                            child: VideoPlayer(_controller),
-                                          ),
-                                          Positioned.fill(
-                                            child: InkWell(
-                                              onTap: () =>
-                                                  onPortraitScreenTouch(),
-                                              child: showingPlayButton
-                                                  ? SizedBox(
-                                                      height: 100.w,
-                                                      width: 100.w,
-                                                      child: Icon(
-                                                        _controller
-                                                                .value.isPlaying
-                                                            ? Icons.play_circle
-                                                            : Icons
-                                                                .pause_circle,
-                                                        size: 80.w,
-                                                        color: primaryTextColor,
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : Container(height: 300.h),
-                                SizedBox(height: 20.h),
-                                Text(
-                                  'DANCE WITH YOUR PHONE',
-                                  style: TextStyle(
-                                    color: primaryTextColor,
-                                    // fontWeight: FontWeight.bold,
-                                    fontSize: 22.sp,
-                                  ),
+                                Container(
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  'EVERYWHERE',
-                                  style: TextStyle(
-                                    color: primaryTextColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 45.sp,
-                                  ),
-                                ),
+                                const SubscriptionWidget(isInfoPage: true)
                               ],
                             ),
-                            if (flashCredits) creditsWidget()
-                          ],
-                        ),
-                      ),
-                    ),
+                          )
+                        : Expanded(
+                            child: SingleChildScrollView(
+                              child: Stack(
+                                children: [
+                                  Column(
+                                    children: [
+                                      _controller.value.isInitialized
+                                          ? Stack(
+                                              children: [
+                                                AspectRatio(
+                                                  aspectRatio: _controller
+                                                      .value.aspectRatio,
+                                                  child:
+                                                      VideoPlayer(_controller),
+                                                ),
+                                                Positioned.fill(
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        onPortraitScreenTouch(),
+                                                    child: showingPlayButton
+                                                        ? SizedBox(
+                                                            height: 100.w,
+                                                            width: 100.w,
+                                                            child: Icon(
+                                                              _controller.value
+                                                                      .isPlaying
+                                                                  ? Icons
+                                                                      .play_circle
+                                                                  : Icons
+                                                                      .pause_circle,
+                                                              size: 80.w,
+                                                              color:
+                                                                  primaryTextColor,
+                                                            ),
+                                                          )
+                                                        : Container(),
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          : Container(height: 300.h),
+                                      SizedBox(height: 20.h),
+                                      Text(
+                                        'DANCE WITH YOUR PHONE',
+                                        style: TextStyle(
+                                          color: primaryTextColor,
+                                          // fontWeight: FontWeight.bold,
+                                          fontSize: 22.sp,
+                                        ),
+                                      ),
+                                      Text(
+                                        'EVERYWHERE',
+                                        style: TextStyle(
+                                          color: primaryTextColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 45.sp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  if (flashCredits) creditsWidget(),
+                                  if (flashPurchase)
+                                    const SubscriptionWidget(isInfoPage: true)
+                                ],
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),

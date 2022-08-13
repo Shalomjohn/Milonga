@@ -227,7 +227,18 @@ class _MenuPageState extends State<MenuPage> {
     }
     Widget menuItem(int index) {
       Widget child = InkWell(
-          onTap: () => showPurchasePopup(context),
+          onTap: () => showModalBottomSheet<void>(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.w),
+                    topRight: Radius.circular(10.w),
+                  ),
+                ),
+                context: context,
+                builder: (BuildContext context) {
+                  return const SubscriptionWidget();
+                },
+              ),
           child: Column(
             children: [
               Container(

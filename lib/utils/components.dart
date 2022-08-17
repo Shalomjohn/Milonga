@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:milonga/pages/mollieView.dart';
 
 import 'appColors.dart';
 
@@ -200,20 +201,31 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                 vertical: 20.h,
                 horizontal: 20,
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.w),
-                  color: primaryColor,
+              child: InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => MolliePaymentPage(
+                          onFinish: (token) => print(
+                              "PAYMENT SUCCESSFULLL. HERE'S THE TOKEN: $token"),
+                        )),
+                  ),
                 ),
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10.w),
-                  child: Center(
-                    child: Text(
-                      'Continue to Checkout',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.w),
+                    color: primaryColor,
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.w),
+                    child: Center(
+                      child: Text(
+                        'Continue to Checkout',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp),
+                      ),
                     ),
                   ),
                 ),

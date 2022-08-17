@@ -37,8 +37,8 @@ class MolliePaymentPageState extends State<MolliePaymentPage> {
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'http://return.example.com';
-  String cancelURL = 'http://cancel.example.com';
+  String returnURL = 'https://return.example.com';
+  String cancelURL = 'https://cancel.example.com';
 
   @override
   void initState() {
@@ -89,6 +89,7 @@ class MolliePaymentPageState extends State<MolliePaymentPage> {
       'amount': {'currency': 'EUR', 'value': '10.00'},
       'description': 'Order #12345',
       'redirectUrl': returnURL,
+      'webhookUrl': cancelURL,
       'metadata': {'order_id': '12345'}
     };
   }
@@ -127,15 +128,14 @@ class MolliePaymentPageState extends State<MolliePaymentPage> {
               // }
               Navigator.of(context).pop();
               customScaffoldMessage(context,
-                  "Transaction successful! You have been granted access to all our videos. Enjoy!");
-            } else {
+                  "Transaction successful! You have been granted access to all our videos. Enjoy!",
+                  duration: const Duration(seconds: 5));
+            }
+            if (request.url.contains(cancelURL)) {
               Navigator.of(context).pop();
               customScaffoldMessage(
                   context, "Error completing transaction. Please try again");
             }
-            // if (request.url.contains(cancelURL)) {
-            //   Navigator.of(context).pop();
-            // }
             return NavigationDecision.navigate;
           },
         ),
